@@ -391,6 +391,7 @@
             cursor: pointer;
         }
 
+        /* MATCH CONTAINER & CARDS */
         .match-container {
             display: none;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -476,21 +477,44 @@
             font-size: 60px;
             font-weight: bold;
             opacity: 0;
+            z-index: 10;
+            border-radius: 8px;
         }
 
         .feedback-correct {
             color: #2ecc71;
+            background: rgba(46, 204, 113, 0.2);
         }
 
         .feedback-wrong {
             color: #e74c3c;
+            background: rgba(231, 76, 60, 0.2);
         }
 
+        /* --- ✨ ဖြည့်စွက်လိုက်သည့်နေရာ: အတွဲမှန်ကတ်ပြားများ အောက်သို့ လျှောကျပျောက်ကွယ်သွားမည့် CSS Animation --- */
         .card-container.fall-down .card-inner {
-            animation: fallAnim 0.5s forwards;
+            animation: fallAnim 0.6s forwards cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
         }
 
-        /* --- 🏴‍☠️ ✨ ပြင်ဆင်လိုက်သည့်နေရာ: ဆရာကြီး၏ One Piece ပု့စစ်စစ် လင့်ခ်အမှန် (one_piecce_bg.jpg) ချိတ်ဆက်ခြင်း --- */
+        @keyframes fallAnim {
+            0% {
+                transform: rotateY(180deg) translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            30% {
+                transform: rotateY(180deg) translateY(-10px) scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: rotateY(180deg) translateY(500px) scale(0.6);
+                opacity: 0;
+            }
+        }
+
+        /* SPIN WHEEL INTERFACE */
         .spin-bg {
             background-image: url('https://github.com/kayminn555-rgb/English_games/blob/main/one_piecce_bg.jpg?raw=true'), linear-gradient(to bottom, #11335c, #061933);
             background-size: cover;
@@ -563,7 +587,6 @@
             filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
         }
 
-        /* 3D Legs & Pointer Right */
         .ferris-iron-leg-left {
             position: absolute;
             bottom: -30px;
@@ -828,7 +851,6 @@
         let currentRomObject = null; let gameMode = 'solo'; let activeTurn = 1; let scores = { 1: 0, 2: 0 };
         let wheelSegments = []; let currentRotationAngle = 0; let isSpinning = false;
 
-        // --- 🎯 ✨ ပြင်ဆင်လိုက်သည့်နေရာ: ဆရာကြီး ပို့ပေးလိုက်သော .jpg လင့်ခ်အစစ်များဖြင့် မျက်နှာဖုံးပုံများ ကွက်တိချိတ်ဆက်ခြင်း ---
         const GameCovers = {
             match_up: "https://github.com/kayminn555-rgb/English_games/blob/main/match_up_cover.jpg?raw=true",
             spin_wheel: "https://github.com/kayminn555-rgb/English_games/blob/main/spin_wheel_cover.jpg?raw=true"
@@ -933,7 +955,10 @@
             const [c1, c2] = flippedCards;
             if (c1.dataset.id === c2.dataset.id) {
                 c1.querySelector(".feedback-correct").style.opacity = "1"; c2.querySelector(".feedback-correct").style.opacity = "1"; SoundFX.playWin(); scores[activeTurn]++; document.getElementById(`scoreNum${activeTurn}`).innerText = scores[activeTurn]; matchesFound++;
-                setTimeout(() => { c1.classList.add("fall-down"); c2.classList.add("fall-down"); flippedCards = []; if (matchesFound === totalMatches) { alert("🏆 Game Completed!"); powerOffCurrentGame(); } }, 600);
+                setTimeout(() => {
+                    c1.classList.add("fall-down"); c2.classList.add("fall-down"); flippedCards = [];
+                    if (matchesFound === totalMatches) { alert("🏆 Game Completed!"); powerOffCurrentGame(); }
+                }, 600);
             } else {
                 c1.querySelector(".feedback-wrong").style.opacity = "1"; c2.querySelector(".feedback-wrong").style.opacity = "1"; SoundFX.playLose();
                 setTimeout(() => { c1.querySelector(".feedback-wrong").style.opacity = "0"; c2.querySelector(".feedback-wrong").style.opacity = "0"; c1.classList.remove("is-flipped"); c2.classList.remove("is-flipped"); flippedCards = []; if (gameMode === 'team') { activeTurn = activeTurn === 1 ? 2 : 1; updateConsoleTurnUI(); } }, 1000);
@@ -946,9 +971,7 @@
             ctx.clearRect(0, 0, 600, 600);
             for (let i = 0; i < numSegs; i++) {
                 ctx.beginPath(); ctx.moveTo(300, 300); ctx.arc(300, 300, 295, i * arcSize, (i + 1) * arcSize); ctx.fillStyle = segmentColors[i % segmentColors.length]; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#ffffff"; ctx.stroke();
-                ctx.save(); ctx.translate(300, 300); ctx.rotate((i + 0.5) * arcSize); ctx.fillStyle = "white";
-                ctx.font = "bold 28px Segoe UI";
-                ctx.textAlign = "right";
+                ctx.save(); ctx.translate(300, 300); ctx.rotate((i + 0.5) * arcSize); ctx.fillStyle = "white"; ctx.font = "bold 28px Segoe UI"; ctx.textAlign = "right";
                 let text = wheelSegments[i]; if (text.length > 15) text = text.substring(0, 13) + ".."; ctx.fillText(text, 260, 8); ctx.restore();
             }
             const gradient = ctx.createRadialGradient(240, 240, 40, 300, 300, 295); gradient.addColorStop(0, 'rgba(255, 255, 255, 0.12)'); gradient.addColorStop(0.6, 'rgba(0, 0, 0, 0)'); gradient.addColorStop(1, 'rgba(0, 0, 0, 0.3)'); ctx.fillStyle = gradient; ctx.beginPath(); ctx.arc(300, 300, 295, 0, 2 * Math.PI); ctx.fill();
