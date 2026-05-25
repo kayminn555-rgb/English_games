@@ -223,6 +223,99 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
+        /* TEAM SETUP POPUP IN CONSOLE */
+        .setup-section {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: #2c3e50;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .close-setup-btn {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .mode-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            margin-top: 15px;
+        }
+
+        .mode-btn {
+            padding: 12px;
+            border: 2px solid #007aff;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            color: #007aff;
+        }
+
+        .mode-btn.active {
+            background: #007aff;
+            color: white;
+        }
+
+        .team-inputs {
+            display: none;
+            margin-top: 15px;
+            text-align: left;
+        }
+
+        .team-inputs label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            color: #34495e;
+        }
+
+        .team-inputs input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        .btn-boot-game {
+            background-color: #2ecc71;
+            color: white;
+            width: 100%;
+            font-size: 18px;
+            padding: 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
         /* UNIVERSAL SCREEN RUNTIME OVERLAY */
         .game-runtime-overlay {
             display: none;
@@ -277,6 +370,17 @@
         .team-score-card.active-turn {
             background: #e67e22;
             box-shadow: 0 0 15px #e67e22;
+            animation: blink 1.5s infinite alternate;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
         .score-num {
@@ -537,7 +641,7 @@
             box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* Spin PopUp Text Display Box */
+        /* Spin PopUp Box */
         .spin-result-popup {
             display: none;
             position: fixed;
@@ -550,7 +654,7 @@
             border-radius: 15px;
             text-align: center;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            z-index: 2000;
+            z-index: 3000;
             border: 4px solid #f1c40f;
             min-width: 250px;
         }
@@ -608,7 +712,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             z-index: 1500;
         }
     </style>
@@ -649,15 +753,31 @@
         </div>
     </div>
 
+    <div id="setupPopup" class="setup-section">
+        <button class="close-setup-btn" onclick="closeGameSetup()">✕</button>
+        <h2>🎮 Select Game Mode</h2>
+        <div class="mode-options">
+            <button class="mode-btn active" id="btnSolo" onclick="setMode('solo')">Solo Player</button>
+            <button class="mode-btn" id="btnTeam" onclick="setMode('team')">Team Versus</button>
+        </div>
+        <div id="teamInputs" class="team-inputs">
+            <label>Team A Name:</label>
+            <input type="text" id="t1Name" value="Team A">
+            <label>Team B Name:</label>
+            <input type="text" id="t2Name" value="Team B">
+        </div>
+        <button class="btn-boot-game" onclick="startGameNow()">Boot Game Now 🏁</button>
+    </div>
+
     <div class="game-runtime-overlay" id="runtimeArena">
         <div class="game-arena" id="arenaStyleFrame">
-            <div class="scoreboard">
+            <div class="scoreboard" id="scoreboardHeader">
                 <div class="team-score-card active-turn" id="scoreCard1">
-                    <div>Player / Team A</div>
+                    <div id="displayName1">Team A</div>
                     <div class="score-num" id="scoreNum1">0</div>
                 </div>
                 <div class="team-score-card" id="scoreCard2" style="display:none;">
-                    <div>Team B</div>
+                    <div id="displayName2">Team B</div>
                     <div class="score-num" id="scoreNum2">0</div>
                 </div>
             </div>
@@ -695,6 +815,10 @@
         let activePairsData = [];
         let flippedCards = [];
         let matchesFound = 0; let totalMatches = 0;
+        let selectedRomIndex = -1;
+
+        // Setup Systems
+        let gameMode = 'solo'; let activeTurn = 1; let scores = { 1: 0, 2: 0 };
         let wheelSegments = []; let currentRotationAngle = 0; let isSpinning = false;
 
         const SoundFX = {
@@ -728,33 +852,79 @@
             installedGames.forEach((game, index) => {
                 const card = document.createElement("div"); card.classList.add("ps4-game-card");
                 card.innerHTML = `<div class="game-badge">Ready</div><div class="game-card-title">${game.title}</div><div class="game-card-type">Engine: ${game.gameType.replace('_', ' ')}</div>`;
-                card.onclick = () => bootSelectedGameEngine(index);
+                card.onclick = () => openGameSetupPopup(index); // ခလုတ်နှိပ်လျှင် setup ပေါပ်အပ်အရင်ဖွင့်မည်
                 container.appendChild(card);
             });
             if (installedGames.length > 0) { document.getElementById("focusedGameTitle").innerText = installedGames[installedGames.length - 1].title; }
         }
 
-        function bootSelectedGameEngine(index) {
-            const game = installedGames[index];
+        function openGameSetupPopup(index) {
+            selectedRomIndex = index;
+            document.getElementById("mask").style.display = "block";
+            document.getElementById("setupPopup").style.display = "block";
+        }
+
+        function closeGameSetup() {
+            document.getElementById("mask").style.display = "none";
+            document.getElementById("setupPopup").style.display = "none";
+        }
+
+        function setMode(mode) {
+            gameMode = mode;
+            document.getElementById("btnSolo").classList.toggle("active", mode === 'solo');
+            document.getElementById("btnTeam").classList.toggle("active", mode === 'team');
+            document.getElementById("teamInputs").style.display = mode === 'team' ? 'block' : 'none';
+        }
+
+        function startGameNow() {
+            closeGameSetup();
+            const game = installedGames[selectedRomIndex];
             activePairsData = game.pairs;
+
             document.getElementById("consoleHome").style.display = "none";
             document.getElementById("runtimeArena").style.display = "block";
             const frame = document.getElementById("arenaStyleFrame");
 
-            if (game.gameType === 'match_up') {
+            // အမှတ်စာရင်းနှင့် အလှည့် UI စတင်ချိန်ညှိခြင်း
+            scores = { 1: 0, 2: 0 }; activeTurn = 1;
+            document.getElementById("scoreNum1").innerText = "0";
+            document.getElementById("scoreNum2").innerText = "0";
+
+            if (gameMode === 'solo') {
+                document.getElementById("displayName1").innerText = "Solo Player";
+                document.getElementById("scoreCard2").style.display = "none";
+                document.getElementById("scoreCard1").classList.add("active-turn");
+            } else {
+                document.getElementById("displayName1").innerText = document.getElementById("t1Name").value;
+                document.getElementById("displayName2").innerText = document.getElementById("t2Name").value;
+                document.getElementById("scoreCard2").style.display = "block";
+                updateConsoleTurnUI();
+            }
+
+            if (gameTypeCheck(game) === 'match_up') {
                 frame.className = "game-arena match-bg";
                 document.getElementById("matchUpEngineView").style.display = "grid";
                 document.getElementById("spinWheelEngineView").style.display = "none";
+                document.getElementById("scoreboardHeader").style.display = "flex"; // Scoreboard ပြသခြင်း
                 runMatchUpEngineView();
-            } else if (game.gameType === 'spin_wheel') {
+            } else if (gameTypeCheck(game) === 'spin_wheel') {
                 frame.className = "game-arena spin-bg";
                 document.getElementById("matchUpEngineView").style.display = "none";
                 document.getElementById("spinWheelEngineView").style.display = "flex";
+                document.getElementById("scoreboardHeader").style.display = "none"; // Spin wheel တွင် ယာယီပိတ်ထားခြင်း
                 wheelSegments = activePairsData.map(p => p.a);
                 currentRotationAngle = 0;
                 document.getElementById("wheelCanvas").style.transform = `rotate(0deg)`;
                 drawConsoleWheelGraphic();
             }
+        }
+
+        function gameTypeCheck(game) { return game.gameType || 'match_up'; }
+
+        function updateConsoleTurnUI() {
+            if (gameMode === 'solo') return;
+            document.getElementById("scoreCard1").classList.toggle("active-turn", activeTurn === 1);
+            document.getElementById("scoreCard2").classList.toggle("active-turn", activeTurn === 2);
         }
 
         /* ==================== ENGINE MODULE 1: MATCH UP ==================== */
@@ -768,13 +938,10 @@
                 const front = document.createElement("div"); front.classList.add("card-face", "card-front"); front.innerText = index + 1;
                 const back = document.createElement("div"); back.classList.add("card-face", "card-back");
 
-                // --- ✨ ပြင်ဆင်လိုက်သည့်နေရာ: လင့်ခ်အစအဆုံးကို သေချာဖတ်ပြီး ပုံဖော်ပေးမည့် Logic အမှန် ---
                 let trimmedText = data.text.trim();
                 if (trimmedText.startsWith("http://") || trimmedText.startsWith("https://") || trimmedText.startsWith("data:image")) {
                     back.innerHTML = `<img src="${trimmedText}">`;
-                } else {
-                    back.innerText = data.text;
-                }
+                } else { back.innerText = data.text; }
 
                 const cO = document.createElement("div"); cO.classList.add("feedback-overlay", "feedback-correct"); cO.innerText = "✓";
                 const wO = document.createElement("div"); wO.classList.add("feedback-overlay", "feedback-wrong"); wO.innerText = "✗";
@@ -788,16 +955,45 @@
             });
         }
 
+        // --- ✨ ပြင်ဆင်လိုက်သည့်နေရာ: အမှတ်တက်မည့်စနစ်နှင့် အလှည့်ပြောင်းမည့် Logic အပြည့်အစုံ ပြန်ထည့်ခြင်း ---
         function checkMatchLogicConsole() {
             const [c1, c2] = flippedCards;
             if (c1.dataset.id === c2.dataset.id) {
-                c1.querySelector(".feedback-correct").style.opacity = "1"; c2.querySelector(".feedback-correct").style.opacity = "1";
-                SoundFX.playWin(); matchesFound++;
-                setTimeout(() => { c1.classList.add("fall-down"); c2.classList.add("fall-down"); flippedCards = []; if (matchesFound === totalMatches) { alert("🏆 Victory! Match Up Game Completed!"); powerOffCurrentGame(); } }, 600);
+                c1.querySelector(".feedback-correct").style.opacity = "1";
+                c2.querySelector(".feedback-correct").style.opacity = "1";
+
+                SoundFX.playWin();
+                scores[activeTurn]++; // လက်ရှိအသင်းကို အမှတ်ပေါင်းပေးခြင်း
+                document.getElementById(`scoreNum${activeTurn}`).innerText = scores[activeTurn];
+                matchesFound++;
+
+                setTimeout(() => {
+                    c1.classList.add("fall-down");
+                    c2.classList.add("fall-down");
+                    flippedCards = [];
+                    if (matchesFound === totalMatches) {
+                        alert(`🏆 Game Over! Final Score -> Team A: ${scores[1]} | Team B: ${scores[2]}`);
+                        powerOffCurrentGame();
+                    }
+                }, 600);
             } else {
-                c1.querySelector(".feedback-wrong").style.opacity = "1"; c2.querySelector(".feedback-wrong").style.opacity = "1";
+                c1.querySelector(".feedback-wrong").style.opacity = "1";
+                c2.querySelector(".feedback-wrong").style.opacity = "1";
                 SoundFX.playLose();
-                setTimeout(() => { c1.querySelector(".feedback-wrong").style.opacity = "0"; c2.querySelector(".feedback-wrong").style.opacity = "0"; c1.classList.remove("is-flipped"); c2.classList.remove("is-flipped"); flippedCards = []; }, 1000);
+
+                setTimeout(() => {
+                    c1.querySelector(".feedback-wrong").style.opacity = "0";
+                    c2.querySelector(".feedback-wrong").style.opacity = "0";
+                    c1.classList.remove("is-flipped");
+                    c2.classList.remove("is-flipped");
+                    flippedCards = [];
+
+                    // မှားပါက Team Mode တွင် အခြားအသင်းသို့ အလှည့်ပြောင်းပေးခြင်း
+                    if (gameMode === 'team') {
+                        activeTurn = activeTurn === 1 ? 2 : 1;
+                        updateConsoleTurnUI();
+                    }
+                }, 1000);
             }
         }
 
