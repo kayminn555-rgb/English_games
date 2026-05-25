@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Up Game Creator</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #1a252f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .creator-section {
+            background-color: white;
+            width: 90%;
+            max-width: 700px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .word-pair-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .pair-number {
+            font-weight: bold;
+            color: #64748b;
+            min-width: 60px;
+        }
+
+        .word-pair-row input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+        }
+
+        .btn-add {
+            background-color: #3498db;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .btn-save {
+            background-color: #e67e22;
+            color: white;
+            width: 100%;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="creator-section">
+        <h1>🧩 Match Up - Game Factory</h1>
+        <p class="subtitle">Enter your word pairs and export the file for your PS4 Console.</p>
+        <div id="wordInputsContainer"></div>
+        <button class="btn btn-add" onclick="addNewPairRow()">➕ Add New Pair</button>
+        <button class="btn btn-save" onclick="exportMatchUpROM()">📥 Export Match Up Data File (.txt)</button>
+    </div>
+
+    <script>
+        let pairCount = 0;
+        window.onload = function () { for (let i = 0; i < 4; i++) { addNewPairRow(); } };
+
+        function addNewPairRow(valA = '', valB = '') {
+            pairCount++;
+            const container = document.getElementById("wordInputsContainer");
+            const row = document.createElement("div");
+            row.classList.add("word-pair-row");
+            row.id = `pairRow_${pairCount}`;
+            row.innerHTML = `
+                <span class="pair-number">Pair ${pairCount}</span>
+                <input type="text" class="input-word-a" placeholder="Word (e.g. Cat)" value="${valA}">
+                <input type="text" class="input-word-b" placeholder="Definition OR Image URL" value="${valB}">
+                <button class="btn btn-delete" onclick="document.getElementById('pairRow_${pairCount}').remove()">🗑</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function exportMatchUpROM() {
+            const gameName = prompt("Enter Game Name (e.g. Animals):", "My-MatchUp-Game");
+            if (!gameName) return;
+
+            const rows = document.querySelectorAll(".word-pair-row");
+            const compactPairs = [];
+            rows.forEach((row) => {
+                const inputA = row.querySelector(".input-word-a").value.trim();
+                const inputB = row.querySelector(".input-word-b").value.trim();
+                if (inputA && inputB) { compactPairs.push({ a: inputA, b: inputB }); }
+            });
+
+            if (compactPairs.length === 0) { alert("Please fill at least one pair!"); return; }
+
+            // Game ROM Format With Type Identifier
+            const romData = {
+                title: gameName,
+                gameType: "match_up", // ပင်မဂိမ်းစက်က ဖတ်မည့် လျှို့ဝှက်ကုဒ် Tag
+                pairs: compactPairs
+            };
+
+            const blob = new Blob([JSON.stringify(romData)], { type: "text/plain" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = `${gameName}.txt`;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        }
+    </script>
+</body>
+
+</html>
