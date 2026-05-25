@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Minn Spin Wheel - Long Pointer</title>
+    <title>Teacher Minn Spin Wheel - Save Settings Edition</title>
     <style>
-        /* CSS: Full Screen Layout & Luxury Dark Theme */
         html,
         body {
             margin: 0;
@@ -37,7 +36,6 @@
             box-sizing: border-box;
         }
 
-        /* LEFT SIDE: FERRIS WHEEL ARENA */
         .wheel-arena {
             flex: 2;
             display: flex;
@@ -47,7 +45,6 @@
             position: relative;
         }
 
-        /* Ferris Wheel Tall Frame Structure */
         .ferris-wheel-frame {
             position: relative;
             width: 540px;
@@ -57,7 +54,6 @@
             align-items: center;
         }
 
-        /* Moving Canvas Wrapper */
         .wheel-wrapper {
             position: absolute;
             top: 10px;
@@ -65,10 +61,7 @@
             height: 440px;
             border-radius: 50%;
             border: 10px solid #ffffff;
-            box-shadow:
-                0 15px 35px rgba(0, 0, 0, 0.5),
-                inset 0 4px 8px rgba(255, 255, 255, 0.6),
-                inset 0 -4px 8px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 4px 8px rgba(255, 255, 255, 0.6), inset 0 -4px 8px rgba(0, 0, 0, 0.4);
             background: #ffffff;
             z-index: 10;
         }
@@ -81,7 +74,6 @@
             filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
         }
 
-        /* 3D Metallic Stands (ဘေးကားကား ထောက်တိုင်အစစ်ကြီးများ) */
         .ferris-iron-leg-left {
             position: absolute;
             bottom: 10px;
@@ -138,24 +130,20 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
         }
 
-        /* --- 🎯 ပြင်ဆင်လိုက်သည့်နေရာ: Wheel ထဲအထိ ကွက်တိ ထိုးဖောက်ရောက်ရှိသွားမည့် မြားရှည်ကြီး (Longer Triangle Pointer) --- */
         .wheel-pointer-right {
             position: absolute;
             top: 230px;
             right: 25px;
-            /* အတိုအရှည် အချိုးအစား ချိန်ညှိရန် ဘီးဝိုင်းဘက်သို့ ပိုတိုးလိုက်ခြင်း */
             transform: translateY(-50%);
             width: 0;
             height: 0;
             border-top: 22px solid transparent;
             border-bottom: 22px solid transparent;
             border-right: 55px solid #e74c3c;
-            /* မြားတြိဂံရဲ့ အလျားကို 32px မှ 55px သို့ ပိုရှည်အောင် တိုးမြှင့်လိုက်ခြင်း */
             z-index: 30;
             filter: drop-shadow(-4px 4px 6px rgba(0, 0, 0, 0.5));
         }
 
-        /* ဝင်ရိုးဗဟို (Center Axle Hub) */
         .center-hub {
             position: absolute;
             top: 230px;
@@ -186,7 +174,6 @@
             box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* RIGHT SIDE: DASHBOARD PANEL */
         .dashboard-panel {
             flex: 1;
             background: rgba(0, 0, 0, 0.35);
@@ -271,10 +258,6 @@
             width: 100%;
         }
 
-        .btn-add:hover {
-            background-color: #27ae60;
-        }
-
         .btn-export {
             background-color: #e67e22;
             color: white;
@@ -312,7 +295,6 @@
             cursor: pointer;
         }
 
-        /* Popups */
         .result-popup {
             display: none;
             position: fixed;
@@ -330,19 +312,10 @@
             min-width: 250px;
         }
 
-        .result-popup h3 {
-            margin: 0;
-            font-size: 18px;
-            color: #7f8c8d;
-            text-transform: uppercase;
-        }
-
         .result-popup div {
             font-size: 42px;
             font-weight: bold;
             margin-top: 10px;
-            color: #2c3e50;
-            word-break: break-word;
         }
 
         .btn-close-popup {
@@ -350,6 +323,9 @@
             background: #2c3e50;
             color: white;
             padding: 10px 25px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
         }
 
         .overlay-mask {
@@ -374,15 +350,9 @@
                 <div class="ferris-iron-leg-right"></div>
                 <div class="leg-foot-left"></div>
                 <div class="leg-foot-right"></div>
-
-                <div class="wheel-wrapper">
-                    <canvas id="wheelCanvas"></canvas>
-                </div>
-
+                <div class="wheel-wrapper"><canvas id="wheelCanvas"></canvas></div>
                 <div class="wheel-pointer-right"></div>
-
-                <div class="center-hub">
-                    <button class="spin-trigger-btn" onclick="triggerWheelSpin()">SPIN</button>
+                <div class="center-hub"><button class="spin-trigger-btn" onclick="triggerWheelSpin()">SPIN</button>
                 </div>
             </div>
         </div>
@@ -390,21 +360,17 @@
         <div class="dashboard-panel">
             <div class="panel-top" style="display: flex; flex-direction: column; height: 100%;">
                 <h2>Teacher Minn Spin Wheel</h2>
-
                 <div class="time-setting-box">
                     <span>⏱ Set Spin Duration (Seconds):</span>
                     <input type="number" id="spinTimeInput" value="15" min="2" max="60">
                 </div>
-
                 <div class="input-group-bulk">
                     <textarea id="bulkItemInput"
                         placeholder="Paste list or type items here...&#10;(One item per line)"></textarea>
                     <button class="btn btn-add" onclick="addBulkItemsToWheel()">➕ Add Items</button>
                 </div>
-
                 <div class="items-list-box" id="listContainer"></div>
             </div>
-
             <button class="btn btn-export" onclick="exportSpinWheelROM()">📥 Export Spin Wheel Data (.txt)</button>
         </div>
     </div>
@@ -418,133 +384,62 @@
 
     <script>
         let wheelSegments = ["1", "2", "3", "4", "5", "6", "7", "8"];
-        let currentRotationAngle = 0;
-        let isSpinning = false;
-        let audioCtx = null;
-
-        function initAudio() {
-            if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
-            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
-        }
-
+        let currentRotationAngle = 0; let isSpinning = false; let audioCtx = null;
+        function initAudio() { if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } if (audioCtx.state === 'suspended') { audioCtx.resume(); } }
         window.onload = function () { drawWheelGraphic(); updateItemsListView(); };
 
         function drawWheelGraphic() {
-            const canvas = document.getElementById("wheelCanvas"); const ctx = canvas.getContext("2d");
-            canvas.width = 600; canvas.height = 600;
-            const numSegs = wheelSegments.length;
-            if (numSegs === 0) { ctx.clearRect(0, 0, 600, 600); ctx.fillStyle = "#7f8c8d"; ctx.font = "bold 24px Segoe UI"; ctx.textAlign = "center"; ctx.fillText("Please add items to the wheel!", 300, 300); return; }
-
+            const canvas = document.getElementById("wheelCanvas"); const ctx = canvas.getContext("2d"); canvas.width = 600; canvas.height = 600;
+            const numSegs = wheelSegments.length; if (numSegs === 0) return;
             const arcSize = (2 * Math.PI) / numSegs;
             const segmentColors = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#f1c40f", "#e67e22", "#e74c3c", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad"];
-
             ctx.clearRect(0, 0, 600, 600);
             for (let i = 0; i < numSegs; i++) {
-                ctx.beginPath(); ctx.moveTo(300, 300); ctx.arc(300, 300, 295, i * arcSize, (i + 1) * arcSize);
-                ctx.fillStyle = segmentColors[i % segmentColors.length]; ctx.fill();
-                ctx.lineWidth = 2; ctx.strokeStyle = "#ffffff"; ctx.stroke();
-
-                ctx.save(); ctx.translate(300, 300); ctx.rotate((i + 0.5) * arcSize);
-                ctx.fillStyle = "white"; ctx.font = "bold 22px Segoe UI"; ctx.textAlign = "right";
-                ctx.shadowColor = 'rgba(0,0,0,0.4)'; ctx.shadowBlur = 4;
+                ctx.beginPath(); ctx.moveTo(300, 300); ctx.arc(300, 300, 295, i * arcSize, (i + 1) * arcSize); ctx.fillStyle = segmentColors[i % segmentColors.length]; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#ffffff"; ctx.stroke();
+                ctx.save(); ctx.translate(300, 300); ctx.rotate((i + 0.5) * arcSize); ctx.fillStyle = "white"; ctx.font = "bold 22px Segoe UI"; ctx.textAlign = "right";
                 let text = wheelSegments[i]; if (text.length > 15) text = text.substring(0, 13) + "..";
                 ctx.fillText(text, 260, 8); ctx.restore();
             }
-
-            const gradient = ctx.createRadialGradient(240, 240, 40, 300, 300, 295);
-            gradient.addColorStop(0, 'rgba(255, 255, 255, 0.12)');
-            gradient.addColorStop(0.6, 'rgba(0, 0, 0, 0)');
-            gradient.addColorStop(1, 'rgba(0, 0, 0, 0.3)');
-            ctx.fillStyle = gradient; ctx.beginPath(); ctx.arc(300, 300, 295, 0, 2 * Math.PI); ctx.fill();
+            const gradient = ctx.createRadialGradient(240, 240, 40, 300, 300, 295); gradient.addColorStop(0, 'rgba(255, 255, 255, 0.12)'); gradient.addColorStop(0.6, 'rgba(0, 0, 0, 0)'); gradient.addColorStop(1, 'rgba(0, 0, 0, 0.3)'); ctx.fillStyle = gradient; ctx.beginPath(); ctx.arc(300, 300, 295, 0, 2 * Math.PI); ctx.fill();
         }
 
-        function addBulkItemsToWheel() {
-            const area = document.getElementById("bulkItemInput"); const text = area.value.trim(); if (!text) return;
-            const lines = text.split('\n'); lines.forEach(line => { const item = line.trim(); if (item !== "") wheelSegments.push(item); });
-            area.value = ""; drawWheelGraphic(); updateItemsListView();
-        }
-
+        function addBulkItemsToWheel() { const area = document.getElementById("bulkItemInput"); const text = area.value.trim(); if (!text) return; const lines = text.split('\n'); lines.forEach(line => { const item = line.trim(); if (item !== "") wheelSegments.push(item); }); area.value = ""; drawWheelGraphic(); updateItemsListView(); }
         function deleteItemFromWheel(index) { wheelSegments.splice(index, 1); drawWheelGraphic(); updateItemsListView(); }
-
-        function updateItemsListView() {
-            const container = document.getElementById("listContainer"); container.innerHTML = "";
-            wheelSegments.forEach((item, index) => {
-                const row = document.createElement("div"); row.classList.add("list-item-row");
-                row.innerHTML = `<span>${item}</span><button class="btn-delete-item" onclick="deleteItemFromWheel(${index})">🗑</button>`;
-                container.appendChild(row);
-            });
-        }
+        function updateItemsListView() { const container = document.getElementById("listContainer"); container.innerHTML = ""; wheelSegments.forEach((item, index) => { const row = document.createElement("div"); row.classList.add("list-item-row"); row.innerHTML = `<span>${item}</span><button class="btn-delete-item" onclick="deleteItemFromWheel(${index})">🗑</button>`; container.appendChild(row); }); }
 
         function triggerWheelSpin() {
-            if (isSpinning || wheelSegments.length === 0) return;
-            isSpinning = true;
-            initAudio();
-
-            let spinSeconds = parseInt(document.getElementById("spinTimeInput").value);
-            if (isNaN(spinSeconds) || spinSeconds < 2) spinSeconds = 15;
-
-            const canvas = document.getElementById("wheelCanvas");
-            canvas.style.transition = `transform ${spinSeconds}s cubic-bezier(0.1, 0.85, 0.25, 1)`;
-
-            const numSegs = wheelSegments.length;
-            const totalDegreesToRotate = 360 * (spinSeconds * 1.2) + Math.floor(Math.random() * 360);
-            currentRotationAngle += totalDegreesToRotate;
-            canvas.style.transform = `rotate(${currentRotationAngle}deg)`;
-
-            let startTimestamp = null;
-            let lastSegmentIdx = -1;
-
+            if (isSpinning || wheelSegments.length === 0) return; isSpinning = true; initAudio();
+            let spinSeconds = parseInt(document.getElementById("spinTimeInput").value) || 15;
+            const canvas = document.getElementById("wheelCanvas"); canvas.style.transition = `transform ${spinSeconds}s cubic-bezier(0.1, 0.85, 0.25, 1)`;
+            const numSegs = wheelSegments.length; const totalDegreesToRotate = 360 * (spinSeconds * 1.2) + Math.floor(Math.random() * 360); currentRotationAngle += totalDegreesToRotate; canvas.style.transform = `rotate(${currentRotationAngle}deg)`;
+            let startTimestamp = null; let lastSegmentIdx = -1;
             function playDynamicTickSound(timestamp) {
-                if (!startTimestamp) startTimestamp = timestamp;
-                let elapsed = (timestamp - startTimestamp) / 1000;
-                if (elapsed >= spinSeconds) return;
-
-                let progress = elapsed / spinSeconds;
-                let easeOutFactor = 1 - Math.pow(1 - progress, 3);
-                let currentPosDegrees = (currentRotationAngle - totalDegreesToRotate) + (totalDegreesToRotate * easeOutFactor);
-
-                let currentSegmentIdx = Math.floor(((360 - (currentPosDegrees % 360)) % 360) / (360 / numSegs));
-
-                if (currentSegmentIdx !== lastSegmentIdx) {
-                    playTickAudioNode();
-                    lastSegmentIdx = currentSegmentIdx;
-                }
+                if (!startTimestamp) startTimestamp = timestamp; let elapsed = (timestamp - startTimestamp) / 1000; if (elapsed >= spinSeconds) return;
+                let progress = elapsed / spinSeconds; let easeOutFactor = 1 - Math.pow(1 - progress, 3); let currentPosDegrees = (currentRotationAngle - totalDegreesToRotate) + (totalDegreesToRotate * easeOutFactor); let currentSegmentIdx = Math.floor(((360 - (currentPosDegrees % 360)) % 360) / (360 / numSegs));
+                if (currentSegmentIdx !== lastSegmentIdx) { playTickAudioNode(); lastSegmentIdx = currentSegmentIdx; }
                 if (isSpinning) requestAnimationFrame(playDynamicTickSound);
             }
             requestAnimationFrame(playDynamicTickSound);
-
-            setTimeout(() => {
-                isSpinning = false;
-                let netDegrees = currentRotationAngle % 360;
-                let degreesPerSegment = 360 / numSegs;
-                let winningIndex = Math.floor(((360 - netDegrees) % 360) / degreesPerSegment);
-
-                if (winningIndex < 0) winningIndex = 0;
-                if (winningIndex >= numSegs) winningIndex = numSegs - 1;
-
-                showResultValuePopup(wheelSegments[winningIndex]);
-            }, spinSeconds * 1000);
+            setTimeout(() => { isSpinning = false; let netDegrees = currentRotationAngle % 360; let winningIndex = Math.floor(((360 - netDegrees) % 360) / (360 / numSegs)); if (winningIndex < 0) winningIndex = 0; showResultValuePopup(wheelSegments[winningIndex]); }, spinSeconds * 1000);
         }
-
-        function playTickAudioNode() {
-            try {
-                const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-                osc.type = 'sine'; osc.frequency.setValueAtTime(550, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.04, audioCtx.currentTime); gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
-                osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.03);
-            } catch (e) { }
-        }
-
-        function showResultValuePopup(value) {
-            try {
-                const t = audioCtx.currentTime; const tone = (f, s, d) => { const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.type = 'square'; o.frequency.setValueAtTime(f, s); g.gain.setValueAtTime(0.05, s); g.gain.linearRampToValueAtTime(0.001, s + d); o.connect(g); g.connect(audioCtx.destination); o.start(s); o.stop(s + d); }; tone(523.25, t, 0.1); tone(659.25, t + 0.1, 0.1); tone(783.99, t + 0.2, 0.3);
-            } catch (e) { }
-            document.getElementById("resultValue").innerText = value;
-            document.getElementById("mask").style.display = "block"; document.getElementById("resultPopup").style.display = "block";
-        }
-
+        function playTickAudioNode() { try { const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(550, audioCtx.currentTime); gain.gain.setValueAtTime(0.04, audioCtx.currentTime); gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.03); osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.03); } catch (e) { } }
+        function showResultValuePopup(value) { try { const t = audioCtx.currentTime; const tone = (f, s, d) => { const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.type = 'square'; o.frequency.setValueAtTime(f, s); g.gain.setValueAtTime(0.05, s); g.gain.linearRampToValueAtTime(0.001, s + d); o.connect(g); g.connect(audioCtx.destination); o.start(s); o.stop(s + d); }; tone(523.25, t, 0.1); tone(659.25, t + 0.1, 0.1); tone(783.99, t + 0.2, 0.3); } catch (e) { } document.getElementById("resultValue").innerText = value; document.getElementById("mask").style.display = "block"; document.getElementById("resultPopup").style.display = "block"; }
         function closeResultPopup() { document.getElementById("mask").style.display = "none"; document.getElementById("resultPopup").style.display = "none"; }
-        function exportSpinWheelROM() { if (wheelSegments.length === 0) { alert("Please add items before exporting!"); return; } const name = prompt("Enter Game Name:", "My-Wheel-Game"); if (!name) return; const romFormat = { title: name, gameType: "spin_wheel", pairs: wheelSegments.map(item => ({ a: item, b: "" })) }; const blob = new Blob([JSON.stringify(romFormat)], { type: "text/plain" }); const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `${name}.txt`; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+
+        // --- 📥 ပြင်ဆင်လိုက်သည့်နေရာ: စက္ကန့်ဒေတာပါ ပေါင်းထည့်ထုတ်ပေးမည့် Logic ---
+        function exportSpinWheelROM() {
+            if (wheelSegments.length === 0) return;
+            const name = prompt("Enter Game Name:", "My-Wheel-Game"); if (!name) return;
+            let spinSeconds = parseInt(document.getElementById("spinTimeInput").value) || 15;
+            const romFormat = {
+                title: name,
+                gameType: "spin_wheel",
+                duration: spinSeconds, // ဖိုင်ထဲမှာ စက္ကန့်ကို တစ်ပါတည်း သိမ်းလိုက်ခြင်း
+                pairs: wheelSegments.map(item => ({ a: item, b: "" }))
+            };
+            const blob = new Blob([JSON.stringify(romFormat)], { type: "text/plain" });
+            const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `${name}.txt`; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        }
     </script>
 </body>
 
