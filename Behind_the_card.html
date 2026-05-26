@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Behind the Card - ROM Maker</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .studio-box {
+            width: 90%;
+            max-width: 650px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #f1c40f;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 15px;
+        }
+
+        textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: 2px solid #f1c40f;
+        }
+
+        .btn-export {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            margin-top: 25px;
+            background: #e67e22;
+            color: white;
+            transition: 0.2s;
+        }
+
+        .btn-export:hover {
+            background: #d35400;
+        }
+
+        .info-card {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            font-size: 13px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="studio-box">
+        <h2>📷 Behind the Card: ROM Factory</h2>
+        <div class="info-card">
+            💡 <b>Instructions:</b> Paste your secret image URLs below (one link per line). This factory will
+            automatically generate a game file with the <code>behind_the_card</code> engine identifier for your main
+            console system.
+        </div>
+
+        <label>📌 Enter Game Title:</label>
+        <input type="text" id="gameTitle" value="Guess the Hidden Picture">
+
+        <label>🔗 Paste Image Links (One link per line):</label>
+        <textarea id="urlLinks"
+            placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.png"></textarea>
+
+        <button class="btn-export" onclick="exportBehindCardROM()">📥 Export Behind Card ROM (.txt)</button>
+    </div>
+
+    <script>
+        function exportBehindCardROM() {
+            const title = document.getElementById("gameTitle").value.trim() || "Behind-the-Card";
+            const urlsText = document.getElementById("urlLinks").value.trim();
+
+            if (!urlsText) { alert("Please paste at least one image link!"); return; }
+
+            let imageLinksArray = [];
+            urlsText.split('\n').forEach(url => {
+                if (url.trim() !== "") { imageLinksArray.push(url.trim()); }
+            });
+
+            if (imageLinksArray.length === 0) { alert("Please paste valid image links!"); return; }
+
+            const romObject = {
+                title: title,
+                gameType: "behind_the_card", // Connects directly to the new engine
+                pairs: imageLinksArray.map(url => ({ a: url, b: "" })) // Formatted to align with console template
+            };
+
+            const dataBlob = new Blob([JSON.stringify(romObject)], { type: "text/plain" });
+            const downloader = document.createElement("a");
+            downloader.href = URL.createObjectURL(dataBlob);
+            downloader.download = `${title}.txt`;
+            document.body.appendChild(downloader);
+            downloader.click();
+            document.body.removeChild(downloader);
+        }
+    </script>
+</body>
+
+</html>

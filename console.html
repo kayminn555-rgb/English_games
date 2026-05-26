@@ -100,7 +100,6 @@
             display: none;
         }
 
-        /* PS4 Disc Card */
         .insert-disc-card {
             min-width: 180px;
             height: 180px;
@@ -136,7 +135,6 @@
             }
         }
 
-        /* PS4 Game Cover Art Cards */
         .ps4-game-card {
             min-width: 180px;
             height: 180px;
@@ -148,7 +146,7 @@
             padding: 15px;
             box-sizing: border-box;
             cursor: pointer;
-            transition: 0.25s cubic-bezier(0.1, 0.8, 0.3, 1);
+            transition: 0.25s;
             position: relative;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
             background-size: cover;
@@ -205,36 +203,7 @@
             margin-top: 3px;
         }
 
-        .ps4-bottom-bar {
-            display: flex;
-            gap: 30px;
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.6);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 20px;
-        }
-
-        .nav-hint {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .ps-btn-icon {
-            width: 22px;
-            height: 22px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-        }
-
-        /* RUNTIME OVERLAYS */
+        /* RUNTIME LAYOUT SYSTEM */
         .game-runtime-overlay {
             display: none;
             position: fixed;
@@ -253,18 +222,23 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
+            padding: 10px 15px;
             box-sizing: border-box;
         }
 
         .match-bg {
-            background-color: #cd853f;
-            background-image: linear-gradient(45deg, #8b4513 25%, transparent 25%), linear-gradient(-45deg, #8b4513 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #8b4513 75%), linear-gradient(-45deg, transparent 75%, #8b4513 75%);
-            background-size: 100px 100px;
-            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.7);
+            background: radial-gradient(circle at center, #1e2942 0%, #111726 100%);
         }
 
-        /* SCOREBOARD HEADER */
+        .spin-bg {
+            background-image: url('https://github.com/kayminn555-rgb/English_games/blob/main/one_piecce_bg.jpg?raw=true'), linear-gradient(to bottom, #11335c, #061933);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        /* SCOREBOARD SYSTEM */
         .scoreboard {
             display: flex;
             width: 95%;
@@ -276,33 +250,58 @@
             border-radius: 10px;
             border: 2px solid #ffffff;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            z-index: 20;
         }
 
         .score-side-container {
             display: flex;
             gap: 20px;
             align-items: center;
+            width: 100%;
+            justify-content: space-between;
         }
 
         .team-score-card {
-            padding: 5px 20px;
-            border-radius: 8px;
-            min-width: 120px;
-            text-align: center;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            width: 300px;
+            box-sizing: border-box;
         }
 
         .team-score-card.active-turn {
-            background: #e67e22;
-            box-shadow: 0 0 15px #e67e22;
-            border-color: #ffffff;
+            background: #f39c12;
+            color: #000;
+            border-color: #fff;
+            box-shadow: 0 0 15px #f39c12;
+            transform: scale(1.03);
         }
 
         .score-num {
-            font-size: 26px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 1.3rem;
             font-weight: bold;
-            margin-top: 2px;
+            margin-left: 10px;
+        }
+
+        .round-info {
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: #34495e;
+            padding: 5px 20px;
+            border-radius: 20px;
+            text-transform: uppercase;
         }
 
         .live-mode-switcher {
@@ -328,76 +327,169 @@
             background: #007aff;
         }
 
-        /* LIVE TEAM CONFIG PANEL */
-        .live-team-config-panel {
+        /* ENGINE PACK 3: BEHIND THE CARD GRID */
+        .main-content-layout {
             display: none;
-            background: #ffffff;
-            color: #2c3e50;
-            padding: 15px 25px;
-            border-radius: 8px;
-            width: 95%;
-            max-width: 600px;
-            margin: 10px auto;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            height: calc(100% - 160px);
+            grid-template-columns: 160px 1fr 160px;
+            align-items: center;
+            padding: 10px;
             box-sizing: border-box;
         }
 
-        .config-row {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .input-box-meta {
+        .score-control {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            flex: 1;
-        }
-
-        .input-box-meta input {
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #cbd5e1;
-            font-weight: bold;
-            font-size: 14px;
-            color: #2c3e50;
-        }
-
-        .radio-selectors {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            font-weight: bold;
-            font-size: 13px;
-            color: #34495e;
-        }
-
-        .radio-option {
-            display: flex;
+            gap: 10px;
             align-items: center;
-            gap: 6px;
-            cursor: pointer;
+            justify-content: center;
         }
 
-        .btn-apply-teams {
-            background: #2ecc71;
-            color: white;
+        .control-btn {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: bold;
+            font-size: 2.4rem;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.1s;
+            user-select: none;
         }
 
-        /* MATCH CONTAINER & CARDS */
-        .match-container {
+        .control-btn:active {
+            transform: scale(0.9);
+        }
+
+        .btn-correct {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .btn-wrong {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .score-control span {
+            font-weight: bold;
+            font-size: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* 🛠 အမှတ်ပြန်လျှော့နိုင်မည့် ခလုတ်ငယ်များအတွက် CSS */
+        .btn-minus {
+            background-color: #7f8c8d;
+            color: white;
+            width: 55px;
+            height: 35px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: 0.1s;
+            margin-top: 2px;
+        }
+
+        .btn-minus:active {
+            transform: scale(0.9);
+        }
+
+        .board-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .grid-board {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 75vh;
+            max-height: 55vh;
+            min-width: 500px;
+            min-height: 380px;
+            background: #ffffff;
+            border: 6px solid #fff;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            overflow: hidden;
+            transition: opacity 0.4s ease-in-out;
+            opacity: 1;
+        }
+
+        .hidden-image-holder {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .card-slot {
+            position: relative;
+            z-index: 2;
+            background: transparent;
+        }
+
+        .card-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: white;
+            font-size: 2.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            outline: 1px solid #2c3e50;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .card-cover:hover {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+
+        .card-slot.revealed .card-cover {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        /* ENGINE PACK 1: MATCH UP GRID FIELD */
+        .matchup-grid-field {
             display: none;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
             gap: 12px;
             width: 95%;
-            max-width: 1100px;
+            max-width: 1000px;
             margin: auto;
             perspective: 1200px;
             justify-content: center;
@@ -407,7 +499,6 @@
             height: 115px;
             perspective: 1200px;
             cursor: pointer;
-            position: relative;
         }
 
         .card-inner {
@@ -477,76 +568,33 @@
             font-size: 60px;
             font-weight: bold;
             opacity: 0;
-            z-index: 10;
-            border-radius: 8px;
         }
 
         .feedback-correct {
             color: #2ecc71;
-            background: rgba(46, 204, 113, 0.2);
         }
 
         .feedback-wrong {
             color: #e74c3c;
-            background: rgba(231, 76, 60, 0.2);
         }
 
-        /* --- ✨ ဖြည့်စွက်လိုက်သည့်နေရာ: အတွဲမှန်ကတ်ပြားများ အောက်သို့ လျှောကျပျောက်ကွယ်သွားမည့် CSS Animation --- */
         .card-container.fall-down .card-inner {
-            animation: fallAnim 0.6s forwards cubic-bezier(0.25, 1, 0.5, 1);
-            pointer-events: none;
+            animation: fallAnim 0.5s forwards;
         }
 
         @keyframes fallAnim {
             0% {
-                transform: rotateY(180deg) translateY(0) scale(1);
-                opacity: 1;
-            }
-
-            30% {
-                transform: rotateY(180deg) translateY(-10px) scale(1.05);
+                transform: rotateY(180deg) translateY(0);
                 opacity: 1;
             }
 
             100% {
-                transform: rotateY(180deg) translateY(500px) scale(0.6);
+                transform: rotateY(180deg) translateY(500px);
                 opacity: 0;
             }
         }
 
-        /* SPIN WHEEL INTERFACE */
-        .spin-bg {
-            background-image: url('https://github.com/kayminn555-rgb/English_games/blob/main/one_piecce_bg.jpg?raw=true'), linear-gradient(to bottom, #11335c, #061933);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-        }
-
-        .live-spin-time-box {
-            background: rgba(44, 62, 80, 0.95);
-            padding: 10px 25px;
-            border-radius: 10px;
-            border: 2px solid #ffffff;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .live-spin-time-box input {
-            width: 60px;
-            padding: 6px;
-            font-size: 16px;
-            border-radius: 6px;
-            border: none;
-            text-align: center;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
+        /* ENGINE PACK 2: SPIN WHEEL EMBEDDED FIELD */
         .spin-container {
             display: none;
             flex-direction: column;
@@ -560,8 +608,8 @@
 
         .ferris-wheel-frame {
             position: relative;
-            width: 540px;
-            height: 420px;
+            width: 620px;
+            height: 500px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -570,31 +618,26 @@
         .wheel-wrapper {
             position: absolute;
             top: 10px;
-            width: 340px;
-            height: 340px;
+            width: 450px;
+            height: 450px;
             border-radius: 50%;
-            border: 10px solid #ffffff;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 4px 8px rgba(255, 255, 255, 0.6), inset 0 -4px 8px rgba(0, 0, 0, 0.4);
+            border: 3px solid #ffffff;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
             background: #ffffff;
             z-index: 10;
-        }
-
-        #wheelCanvas {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            transition: transform 0s cubic-bezier(0.1, 0.85, 0.25, 1);
-            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .ferris-iron-leg-left {
             position: absolute;
             bottom: -30px;
-            left: 155px;
+            left: 165px;
             width: 14px;
-            height: 250px;
+            height: 320px;
             background: linear-gradient(to right, #bdc3c7 0%, #ffffff 30%, #95a5a6 70%, #7f8c8d 100%);
-            transform: rotate(20deg);
+            transform: rotate(19deg);
             transform-origin: bottom center;
             z-index: 5;
             border-radius: 4px;
@@ -605,11 +648,11 @@
         .ferris-iron-leg-right {
             position: absolute;
             bottom: -30px;
-            right: 155px;
+            right: 165px;
             width: 14px;
-            height: 250px;
+            height: 320px;
             background: linear-gradient(to right, #bdc3c7 0%, #ffffff 30%, #95a5a6 70%, #7f8c8d 100%);
-            transform: rotate(-20deg);
+            transform: rotate(-19deg);
             transform-origin: bottom center;
             z-index: 5;
             border-radius: 4px;
@@ -619,10 +662,10 @@
 
         .leg-foot-left {
             position: absolute;
-            bottom: -40px;
+            bottom: -42px;
             left: 135px;
-            width: 32px;
-            height: 12px;
+            width: 36px;
+            height: 14px;
             background: linear-gradient(to bottom, #bdc3c7, #7f8d8d);
             border-radius: 3px;
             z-index: 6;
@@ -630,10 +673,10 @@
 
         .leg-foot-right {
             position: absolute;
-            bottom: -40px;
+            bottom: -42px;
             right: 135px;
-            width: 32px;
-            height: 12px;
+            width: 36px;
+            height: 14px;
             background: linear-gradient(to bottom, #bdc3c7, #7f8d8d);
             border-radius: 3px;
             z-index: 6;
@@ -641,25 +684,26 @@
 
         .wheel-pointer-right {
             position: absolute;
-            top: 180px;
-            right: 75px;
+            top: 225px;
+            right: -22px;
             transform: translateY(-50%);
             width: 0;
             height: 0;
-            border-top: 18px solid transparent;
-            border-bottom: 18px solid transparent;
-            border-right: 55px solid #e74c3c;
+            border-top: 22px solid transparent;
+            border-bottom: 22px solid transparent;
+            border-right: 50px solid #e74c3c;
             z-index: 30;
             filter: drop-shadow(-4px 4px 6px rgba(0, 0, 0, 0.5));
+            transition: border-right-color 0.05s ease;
         }
 
         .center-hub {
             position: absolute;
-            top: 180px;
+            top: 225px;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: radial-gradient(circle, #ffffff 30%, #cbd5e1 70%, #7f8c8d 100%);
             border: 4px solid #95a5a6;
             border-radius: 50%;
@@ -671,16 +715,73 @@
         }
 
         .spin-trigger-btn {
-            width: 54px;
-            height: 54px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, #f39c12 0%, #e67e22 50%, #d35400 100%);
             border: none;
             border-radius: 50%;
             color: white;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .live-spin-time-box {
+            background: rgba(44, 62, 80, 0.95);
+            padding: 8px 20px;
+            border-radius: 10px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            z-index: 20;
+        }
+
+        .live-spin-time-box input {
+            width: 60px;
+            padding: 6px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: none;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* UNIVERSAL CONTROL NAV BAR BOTTOM */
+        .bottom-bar {
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            width: 100%;
+            height: 65px;
+            box-sizing: border-box;
+        }
+
+        .nav-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .nav-btn:hover {
+            background: #2980b9;
+        }
+
+        .nav-btn:disabled {
+            background: #7f8c8d;
+            cursor: not-allowed;
         }
 
         .spin-result-popup {
@@ -697,13 +798,14 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
             z-index: 3000;
             border: 4px solid #f1c40f;
-            min-width: 250px;
+            min-width: 280px;
         }
 
         .spin-result-popup div {
             font-size: 42px;
             font-weight: bold;
             margin-top: 10px;
+            color: #e67e22;
         }
 
         .btn-close-spin-popup {
@@ -717,13 +819,15 @@
             cursor: pointer;
         }
 
-        .runtime-controls {
+        .overlay-mask {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            z-index: 100;
-            margin-top: 5px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1500;
         }
 
         .btn-console {
@@ -738,15 +842,51 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .overlay-mask {
+        .live-team-config-panel {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1500;
+            background: #ffffff;
+            color: #2c3e50;
+            padding: 15px 25px;
+            border-radius: 8px;
+            width: 95%;
+            max-width: 600px;
+            margin: 5px auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+            z-index: 500;
+        }
+
+        .config-row {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .input-box-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+        }
+
+        .input-box-meta input {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-weight: bold;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+
+        .btn-apply-teams {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -779,69 +919,128 @@
         <div class="game-arena" id="arenaStyleFrame">
 
             <div class="scoreboard" id="scoreboardHeader">
-                <div class="live-mode-switcher">
-                    <button class="live-tab-btn active" id="liveTabSolo" onclick="switchLiveMode('solo')">Solo
-                        Mode</button>
-                    <button class="live-tab-btn" id="liveTabTeam" onclick="switchLiveMode('team')">Team Versus</button>
-                </div>
                 <div class="score-side-container">
-                    <div class="team-score-card active-turn" id="scoreCard1">
-                        <div id="displayName1">Team A</div>
-                        <div class="score-num" id="scoreNum1">0</div>
+                    <div class="team-score-card team-left active-turn" id="scoreCard1"
+                        onclick="selectActiveTeamConsole(1)">
+                        <span id="displayName1">Team A</span>
+                        <span class="score-num" id="scoreNum1">0</span>
                     </div>
-                    <div class="team-score-card" id="scoreCard2" style="display:none;">
-                        <div id="displayName2">Team B</div>
-                        <div class="score-num" id="scoreNum2">0</div>
+
+                    <div class="round-info" id="roundLabel">Slide 1 / 12</div>
+
+                    <div class="live-mode-switcher" id="classicModeSwitcher">
+                        <button class="live-tab-btn active" id="liveTabSolo"
+                            onclick="switchLiveMode('solo')">Solo</button>
+                        <button class="live-tab-btn" id="liveTabTeam" onclick="switchLiveMode('team')">Team</button>
+                    </div>
+
+                    <div class="team-score-card team-right" id="scoreCard2" onclick="selectActiveTeamConsole(2)">
+                        <span id="displayName2">Team B</span>
+                        <span class="score-num" id="scoreNum2">0</span>
                     </div>
                 </div>
             </div>
 
             <div class="live-team-config-panel" id="liveTeamConfig">
                 <div class="config-row">
-                    <div class="input-box-meta"><label style="font-weight:bold; font-size:12px;">Team A
+                    <div class="input-box-meta"><label style="font-weight:bold; font-size:11px;">Team A
                             Name:</label><input type="text" id="team1Input" value="Straw Hats"></div>
-                    <div class="input-box-meta"><label style="font-weight:bold; font-size:12px;">Team B
+                    <div class="input-box-meta"><label style="font-weight:bold; font-size:11px;">Team B
                             Name:</label><input type="text" id="team2Input" value="Beast Pirates"></div>
-                    <div class="radio-selectors">
-                        <span style="font-size:11px; color:#7f8c8d;">WHO PLAYS FIRST?</span>
-                        <label class="radio-option"><input type="radio" name="firstTurnRadio" value="1" checked> Team A
-                            Starts</label>
-                        <label class="radio-option"><input type="radio" name="firstTurnRadio" value="2"> Team B
-                            Starts</label>
-                    </div>
-                    <button class="btn-apply-teams" onclick="applyTeamConfigurationData()">Apply & Start ⚔️</button>
+                    <button class="btn-apply-teams" onclick="applyTeamConfigurationData()">Apply ⚔</button>
                 </div>
             </div>
 
-            <div class="match-container" id="matchUpEngineView"></div>
-
-            <div class="spin-container" id="spinWheelEngineView">
-                <div class="live-spin-time-box">
-                    <span>⏱ Spin Duration:</span>
-                    <input type="number" id="liveSecondsInput" value="15" min="2" max="60">
-                    <span>Seconds</span>
+            <div class="main-content-layout" id="behindCardEngineView">
+                <div class="score-control">
+                    <button class="control-btn btn-correct" onclick="handleScore(true)">✅</button>
+                    <span>Correct<br>(+1 Point)</span>
+                    <button class="btn-minus" onclick="modifyScoreManual(-1)">-1</button>
                 </div>
 
+                <div class="board-container">
+                    <div class="grid-board" id="gridBoard">
+                        <div class="hidden-image-holder" id="secretImage"></div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">1</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">2</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">3</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">4</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">5</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">6</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">7</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">8</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">9</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">10</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">11</div>
+                        </div>
+                        <div class="card-slot" onclick="revealCard(this)">
+                            <div class="card-cover">12</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="score-control">
+                    <button class="control-btn btn-wrong" onclick="handleScore(false)">❌</button>
+                    <span>Wrong<br>(0 Points)</span>
+                    <button class="btn-minus" onclick="modifyScoreManual(-1)">-1</button>
+                </div>
+            </div>
+
+            <div class="matchup-grid-field" id="matchUpEngineView"></div>
+
+            <div class="spin-container" id="spinWheelEngineView">
+                <div class="live-spin-time-box"><span>⏱ Spin Duration:</span><input type="number" id="liveSecondsInput"
+                        value="5" min="2" max="60"><span>Seconds</span></div>
                 <div class="ferris-wheel-frame">
                     <div class="ferris-iron-leg-left"></div>
                     <div class="ferris-iron-leg-right"></div>
                     <div class="leg-foot-left"></div>
                     <div class="leg-foot-right"></div>
-                    <div class="wheel-wrapper"><canvas id="wheelCanvas"></canvas></div>
-                    <div class="wheel-pointer-right"></div>
+                    <div class="wheel-wrapper">
+                        <canvas id="wheelCanvas" width="500" height="500"></canvas>
+                        <div class="wheel-pointer-right" id="wheelPointer"></div>
+                    </div>
                     <div class="center-hub"><button class="spin-trigger-btn"
                             onclick="triggerConsoleWheelSpin()">SPIN</button></div>
                 </div>
             </div>
 
-            <div class="runtime-controls"><button class="btn-console" onclick="powerOffCurrentGame()">🎮 Close
-                    Game</button></div>
+            <div class="bottom-bar" id="universalControlNavbar">
+                <button class="nav-btn" id="prevBtn" onclick="navigateSlide(-1)">⏮ Previous</button>
+                <button class="nav-btn" style="background-color: #e67e22;" id="resetGridBtn"
+                    onclick="resetCurrentGrid()">🔄 Reset Grid</button>
+                <button class="nav-btn" style="background-color: #9b59b6;" id="revealImageBtn"
+                    onclick="revealEntireImage()">👁️ Reveal Picture</button>
+                <button class="nav-btn" id="nextBtn" onclick="navigateSlide(1)">Next ⏭</button>
+                <button class="btn-console" id="exitConsoleBtn" onclick="powerOffCurrentGame()">🎮 Close Game</button>
+            </div>
         </div>
     </div>
 
     <div class="overlay-mask" id="mask"></div>
     <div class="spin-result-popup" id="spinResultBox">
-        <h3>Selected Item</h3>
+        <h3>Selected Winner</h3>
         <div id="spinResultValue">-</div>
         <button class="btn-close-spin-popup" onclick="closeConsoleSpinPopup()">OK</button>
     </div>
@@ -849,7 +1048,17 @@
     <script>
         let installedGames = []; let activePairsData = []; let flippedCards = []; let matchesFound = 0; let totalMatches = 0;
         let currentRomObject = null; let gameMode = 'solo'; let activeTurn = 1; let scores = { 1: 0, 2: 0 };
-        let wheelSegments = []; let currentRotationAngle = 0; let isSpinning = false;
+        let wheelSegments = []; let currentRotationAngle = 0; let isSpinning = false; let currentIdx = 0; let isTransitioning = false;
+
+        const segmentColors = ["#1abc9c", "#e67e22", "#3498db", "#2ecc71", "#9b59b6", "#f1c40f", "#34495e", "#e74c3c", "#16a085", "#27ae60", "#2980b9", "#8e44ad"];
+        const hidingLayouts = [
+            { top: "0%", left: "50%", width: "25%", height: "33.33%" }, { top: "33.33%", left: "75%", width: "25%", height: "33.33%" },
+            { top: "66.66%", left: "0%", width: "25%", height: "33.33%" }, { top: "33.33%", left: "25%", width: "25%", height: "33.33%" },
+            { top: "0%", left: "0%", width: "50%", height: "33.33%" }, { top: "33.33%", left: "50%", width: "50%", height: "33.33%" },
+            { top: "66.66%", left: "25%", width: "50%", height: "33.33%" }, { top: "0%", left: "25%", width: "50%", height: "66.66%" },
+            { top: "33.33%", left: "50%", width: "50%", height: "66.66%" }, { top: "33.33%", left: "0%", width: "50%", height: "66.66%" }
+        ];
+        const rotations = ["rotate(0deg)", "rotate(180deg)", "scaleX(-1)", "scaleY(-1)"];
 
         const GameCovers = {
             match_up: "https://github.com/kayminn555-rgb/English_games/blob/main/match_up_cover.jpg?raw=true",
@@ -881,65 +1090,161 @@
         }
 
         function renderGameLibraryCarousel() {
-            const container = document.getElementById("gameLibraryContainer");
-            const loaderHtml = container.firstElementChild.outerHTML; container.innerHTML = loaderHtml;
+            const container = document.getElementById("gameLibraryContainer"); container.innerHTML = container.firstElementChild.outerHTML;
             installedGames.forEach((game, index) => {
                 const card = document.createElement("div"); card.classList.add("ps4-game-card");
                 let coverImg = game.gameType === 'spin_wheel' ? GameCovers.spin_wheel : GameCovers.match_up;
                 card.style.backgroundImage = `url('${coverImg}')`;
-                card.innerHTML = `<div class="game-badge">Ready</div><div class="game-card-title">${game.title}</div><div class="game-card-type">Engine: ${game.gameType.replace('_', ' ')}</div>`;
-                card.onclick = () => bootSelectedGameEngine(index);
-                container.appendChild(card);
+                card.innerHTML = `<div class="game-badge">Ready</div><div class="game-card-title">${game.title}</div><div class="game-card-type">Engine: ${game.gameType.replace(/_/g, ' ')}</div>`;
+                card.onclick = () => bootSelectedGameEngine(index); container.appendChild(card);
             });
             if (installedGames.length > 0) { document.getElementById("focusedGameTitle").innerText = installedGames[installedGames.length - 1].title; }
         }
 
         function bootSelectedGameEngine(index) {
             currentRomObject = installedGames[index]; activePairsData = currentRomObject.pairs;
-            document.getElementById("consoleHome").style.display = "none";
-            document.getElementById("runtimeArena").style.display = "block";
-            const frame = document.getElementById("arenaStyleFrame");
-            scores = { 1: 0, 2: 0 }; activeTurn = 1;
-            document.getElementById("scoreNum1").innerText = "0"; document.getElementById("scoreNum2").innerText = "0";
-            document.getElementById("liveTeamConfig").style.display = "none";
-            switchLiveMode('solo');
+            document.getElementById("consoleHome").style.display = "none"; document.getElementById("runtimeArena").style.display = "block";
+            scores = { 1: 0, 2: 0 }; activeTurn = 1; document.getElementById("scoreNum1").innerText = "0"; document.getElementById("scoreNum2").innerText = "0";
+            document.getElementById("liveTeamConfig").style.display = "none"; currentIdx = 0; isTransitioning = false;
+
+            document.getElementById("matchUpEngineView").style.display = "none";
+            document.getElementById("spinWheelEngineView").style.display = "none";
+            document.getElementById("behindCardEngineView").style.display = "none";
+            document.getElementById("universalControlNavbar").style.display = "none";
+            document.getElementById("scoreboardHeader").style.display = "flex";
+            document.getElementById("classicModeSwitcher").style.display = "flex";
+            document.getElementById("roundLabel").style.display = "none";
 
             if (currentRomObject.gameType === 'match_up') {
-                frame.className = "game-arena match-bg";
+                document.getElementById("arenaStyleFrame").className = "game-arena match-bg";
                 document.getElementById("matchUpEngineView").style.display = "grid";
-                document.getElementById("spinWheelEngineView").style.display = "none";
-                document.getElementById("scoreboardHeader").style.display = "flex";
-                runMatchUpEngineView();
+                switchLiveMode('solo');
             } else if (currentRomObject.gameType === 'spin_wheel') {
-                frame.className = "game-arena spin-bg";
-                document.getElementById("matchUpEngineView").style.display = "none";
+                document.getElementById("arenaStyleFrame").className = "game-arena spin-bg";
                 document.getElementById("spinWheelEngineView").style.display = "flex";
                 document.getElementById("scoreboardHeader").style.display = "none";
 
-                if (currentRomObject.duration) {
-                    document.getElementById("liveSecondsInput").value = currentRomObject.duration;
-                }
+                // 🛠 Spin Wheel တွင် အောက်ခြေ Close Game ခလုတ်တန်းတစ်ခုလုံး ပေါ်စေရန် ပြင်ဆင်ခြင်း
+                document.getElementById("universalControlNavbar").style.display = "flex";
+                document.getElementById("prevBtn").style.display = "none";
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("resetGridBtn").style.display = "none";
+                document.getElementById("revealImageBtn").style.display = "none";
+                document.getElementById("exitConsoleBtn").style.display = "block";
 
-                wheelSegments = activePairsData.map(p => p.a);
-                currentRotationAngle = 0; document.getElementById("wheelCanvas").style.transform = `rotate(0deg)`;
-                drawConsoleWheelGraphic();
+                if (currentRomObject.duration) document.getElementById("liveSecondsInput").value = currentRomObject.duration;
+                wheelSegments = activePairsData.map(p => p.a); currentRotationAngle = 0; drawConsoleWheelGraphic(0);
+            } else if (currentRomObject.gameType === 'behind_the_card') {
+                document.getElementById("arenaStyleFrame").className = "game-arena match-bg";
+                document.getElementById("behindCardEngineView").style.display = "grid";
+                document.getElementById("scoreboardHeader").style.display = "grid";
+                document.getElementById("classicModeSwitcher").style.display = "none";
+                document.getElementById("roundLabel").style.display = "block";
+                document.getElementById("universalControlNavbar").style.display = "flex";
+
+                document.getElementById("prevBtn").style.display = "block";
+                document.getElementById("nextBtn").style.display = "block";
+                document.getElementById("resetGridBtn").style.display = "block";
+                document.getElementById("revealImageBtn").style.display = "block";
+                document.getElementById("exitConsoleBtn").style.display = "block";
+
+                switchLiveMode('team');
+                loadBehindCardRound(currentIdx);
             }
         }
 
         function switchLiveMode(mode) {
-            gameMode = mode; document.getElementById("liveTabSolo").classList.toggle("active", mode === 'solo'); document.getElementById("liveTabTeam").classList.toggle("active", mode === 'team');
-            if (mode === 'solo') { document.getElementById("liveTeamConfig").style.display = "none"; document.getElementById("displayName1").innerText = "Player Score"; document.getElementById("scoreCard2").style.display = "none"; document.getElementById("scoreCard1").classList.add("active-turn"); } else { document.getElementById("liveTeamConfig").style.display = "block"; }
+            gameMode = mode;
+            document.getElementById("liveTabSolo").classList.toggle("active", mode === 'solo');
+            document.getElementById("liveTabTeam").classList.toggle("active", mode === 'team');
+            if (mode === 'solo') {
+                document.getElementById("liveTeamConfig").style.display = "none";
+                document.getElementById("displayName1").innerText = "Player Score";
+                document.getElementById("scoreCard2").style.display = "none";
+                activeTurn = 1; updateConsoleTurnUI();
+            } else {
+                if (currentRomObject && currentRomObject.gameType !== 'behind_the_card') {
+                    document.getElementById("liveTeamConfig").style.display = "block";
+                }
+                document.getElementById("scoreCard2").style.display = "flex";
+                updateConsoleTurnUI();
+            }
         }
 
         function applyTeamConfigurationData() {
-            const name1 = document.getElementById("team1Input").value.trim() || "Team A"; const name2 = document.getElementById("team2Input").value.trim() || "Team B";
-            document.getElementById("displayName1").innerText = name1; document.getElementById("displayName2").innerText = name2;
-            const radios = document.getElementsByName("firstTurnRadio"); for (let r of radios) { if (r.checked) activeTurn = parseInt(r.value); }
-            document.getElementById("liveTeamConfig").style.display = "none"; document.getElementById("scoreCard2").style.display = "block"; updateConsoleTurnUI();
+            document.getElementById("displayName1").innerText = document.getElementById("team1Input").value.trim() || "Team A";
+            document.getElementById("displayName2").innerText = document.getElementById("team2Input").value.trim() || "Team B";
+            document.getElementById("liveTeamConfig").style.display = "none";
+            updateConsoleTurnUI();
         }
 
-        function updateConsoleTurnUI() { if (gameMode === 'solo') return; document.getElementById("scoreCard1").classList.toggle("active-turn", activeTurn === 1); document.getElementById("scoreCard2").classList.toggle("active-turn", activeTurn === 2); }
+        function selectActiveTeamConsole(teamNum) {
+            if (gameMode === 'solo') return;
+            activeTurn = teamNum;
+            SoundFX.playFlip();
+            updateConsoleTurnUI();
+        }
 
+        function updateConsoleTurnUI() {
+            document.getElementById("scoreCard1").classList.toggle("active-turn", activeTurn === 1);
+            if (document.getElementById("scoreCard2")) {
+                document.getElementById("scoreCard2").classList.toggle("active-turn", activeTurn === 2);
+            }
+        }
+
+        function handleScore(isCorrect) {
+            if (isCorrect) {
+                scores[activeTurn]++;
+                document.getElementById(`scoreNum${activeTurn}`).innerText = scores[activeTurn];
+                SoundFX.playWin();
+            } else {
+                SoundFX.playLose();
+            }
+        }
+
+        /* 🛠 အမှတ်မှားနှိပ်မိပါက လက်တန်းပြန်နုတ်နိုင်မည့် Logic အသစ် */
+        function modifyScoreManual(amount) {
+            scores[activeTurn] += amount;
+            if (scores[activeTurn] < 0) scores[activeTurn] = 0; // အမှတ်ကို ဝက်အောက် အနုတ်မဖြစ်စေရန် ညှိခြင်း
+            document.getElementById(`scoreNum${activeTurn}`).innerText = scores[activeTurn];
+            SoundFX.playFlip();
+        }
+
+        /* ---------------- ENGINE 3 CORE LOGICS (BEHIND THE CARD) ---------------- */
+        function loadBehindCardRound(idx) {
+            document.getElementById('roundLabel').innerText = `Slide ${idx + 1} / ${activePairsData.length}`;
+            const imgHolder = document.getElementById('secretImage');
+            imgHolder.style.backgroundImage = `url('${activePairsData[idx].a}')`;
+
+            const randomLayout = hidingLayouts[Math.floor(Math.random() * hidingLayouts.length)];
+            imgHolder.style.top = randomLayout.top; imgHolder.style.left = randomLayout.left;
+            imgHolder.style.width = randomLayout.width; imgHolder.style.height = randomLayout.height;
+
+            const randomRotation = rotations[Math.floor(Math.random() * rotations.length)];
+            imgHolder.style.transform = randomRotation;
+
+            document.getElementById('prevBtn').disabled = (idx === 0);
+            document.getElementById('nextBtn').disabled = (idx === activePairsData.length - 1);
+            resetCurrentGrid();
+        }
+
+        function revealCard(slotElement) { if (isTransitioning) return; SoundFX.playFlip(); slotElement.classList.add('revealed'); }
+        function resetCurrentGrid() { document.querySelectorAll('.card-slot').forEach(s => s.classList.remove('revealed')); }
+        function revealEntireImage() { document.querySelectorAll('.card-slot').forEach(s => s.classList.add('revealed')); }
+
+        function navigateSlide(dir) {
+            if (isTransitioning) return; isTransitioning = true;
+            const board = document.getElementById('gridBoard');
+            resetCurrentGrid();
+            setTimeout(() => { board.style.opacity = '0'; }, 400);
+            setTimeout(() => {
+                currentIdx += dir;
+                if (currentIdx >= 0 && currentIdx < activePairsData.length) { loadBehindCardRound(currentIdx); }
+                board.style.opacity = '1'; isTransitioning = false;
+            }, 800);
+        }
+
+        /* ---------------- ENGINE 1 LOGICS (MATCH UP) ---------------- */
         function runMatchUpEngineView() {
             const board = document.getElementById("matchUpEngineView"); board.innerHTML = ""; flippedCards = []; matchesFound = 0; totalMatches = activePairsData.length;
             let cards = []; activePairsData.forEach((pair, idx) => { cards.push({ id: idx, text: pair.a }); cards.push({ id: idx, text: pair.b }); }); cards.sort(() => Math.random() - 0.5);
@@ -955,42 +1260,56 @@
             const [c1, c2] = flippedCards;
             if (c1.dataset.id === c2.dataset.id) {
                 c1.querySelector(".feedback-correct").style.opacity = "1"; c2.querySelector(".feedback-correct").style.opacity = "1"; SoundFX.playWin(); scores[activeTurn]++; document.getElementById(`scoreNum${activeTurn}`).innerText = scores[activeTurn]; matchesFound++;
-                setTimeout(() => {
-                    c1.classList.add("fall-down"); c2.classList.add("fall-down"); flippedCards = [];
-                    if (matchesFound === totalMatches) { alert("🏆 Game Completed!"); powerOffCurrentGame(); }
-                }, 600);
+                setTimeout(() => { c1.classList.add("fall-down"); c2.classList.add("fall-down"); flippedCards = []; if (matchesFound === totalMatches) { alert("🏆 Game Completed!"); powerOffCurrentGame(); } }, 600);
             } else {
                 c1.querySelector(".feedback-wrong").style.opacity = "1"; c2.querySelector(".feedback-wrong").style.opacity = "1"; SoundFX.playLose();
-                setTimeout(() => { c1.querySelector(".feedback-wrong").style.opacity = "0"; c2.querySelector(".feedback-wrong").style.opacity = "0"; c1.classList.remove("is-flipped"); c2.classList.remove("is-flipped"); flippedCards = []; if (gameMode === 'team') { activeTurn = activeTurn === 1 ? 2 : 1; updateConsoleTurnUI(); } }, 1000);
+                setTimeout(() => { c1.querySelector(".feedback-wrong").style.opacity = "0"; c2.querySelector(".feedback-wrong").style.opacity = "0"; c1.classList.remove("is-flipped"); c2.classList.remove("is-flipped"); flippedCards = []; }, 1000);
             }
         }
 
-        function drawConsoleWheelGraphic() {
-            const canvas = document.getElementById("wheelCanvas"); const ctx = canvas.getContext("2d"); canvas.width = 600; canvas.height = 600;
-            const numSegs = wheelSegments.length; const arcSize = (2 * Math.PI) / numSegs; const segmentColors = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#f1c40f", "#e67e22", "#e74c3c", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad"];
-            ctx.clearRect(0, 0, 600, 600);
+        /* ---------------- ENGINE 2 LOGICS (SPIN WHEEL) ---------------- */
+        function drawConsoleWheelGraphic(currentRotationRad) {
+            const canvas = document.getElementById("wheelCanvas"); const ctx = canvas.getContext("2d"); ctx.clearRect(0, 0, 500, 500);
+            const numSegs = wheelSegments.length; const arcSize = (2 * Math.PI) / numSegs;
+            ctx.save(); ctx.translate(250, 250); ctx.rotate(currentRotationRad);
             for (let i = 0; i < numSegs; i++) {
-                ctx.beginPath(); ctx.moveTo(300, 300); ctx.arc(300, 300, 295, i * arcSize, (i + 1) * arcSize); ctx.fillStyle = segmentColors[i % segmentColors.length]; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#ffffff"; ctx.stroke();
-                ctx.save(); ctx.translate(300, 300); ctx.rotate((i + 0.5) * arcSize); ctx.fillStyle = "white"; ctx.font = "bold 28px Segoe UI"; ctx.textAlign = "right";
-                let text = wheelSegments[i]; if (text.length > 15) text = text.substring(0, 13) + ".."; ctx.fillText(text, 260, 8); ctx.restore();
+                ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, 245, i * arcSize, (i + 1) * arcSize);
+                let colorIdx = i; if (numSegs % 2 !== 0 && i === numSegs - 1) { colorIdx = 4; }
+                ctx.fillStyle = segmentColors[colorIdx % segmentColors.length]; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = "#ffffff"; ctx.stroke();
+                ctx.save(); ctx.rotate((i + 0.5) * arcSize); ctx.fillStyle = "white";
+                let text = wheelSegments[i]; let fontSize = 16; if (text.length > 12) fontSize = 13; if (text.length > 20) fontSize = 11;
+                ctx.font = `bold ${fontSize}px sans-serif`; ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(text, 225, 0); ctx.restore();
             }
-            const gradient = ctx.createRadialGradient(240, 240, 40, 300, 300, 295); gradient.addColorStop(0, 'rgba(255, 255, 255, 0.12)'); gradient.addColorStop(0.6, 'rgba(0, 0, 0, 0)'); gradient.addColorStop(1, 'rgba(0, 0, 0, 0.3)'); ctx.fillStyle = gradient; ctx.beginPath(); ctx.arc(300, 300, 295, 0, 2 * Math.PI); ctx.fill();
+            ctx.restore();
+            const grad = ctx.createRadialGradient(250, 250, 20, 250, 250, 245); grad.addColorStop(0, 'rgba(255,255,255,0.05)'); grad.addColorStop(1, 'rgba(0,0,0,0.3)'); ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(250, 250, 245, 0, Math.PI * 2); ctx.fill();
+            let normalizedAngle = (2 * Math.PI - (currentRotationRad % (2 * Math.PI))) % (2 * Math.PI);
+            let targetIdx = Math.floor(normalizedAngle / arcSize); if (targetIdx < 0 || targetIdx >= numSegs) targetIdx = 0;
+            let finalColorIdx = targetIdx; if (numSegs % 2 !== 0 && targetIdx === numSegs - 1) { finalColorIdx = 4; }
+            document.getElementById("wheelPointer").style.borderRightColor = segmentColors[finalColorIdx % segmentColors.length];
+            return targetIdx;
         }
 
         function triggerConsoleWheelSpin() {
             if (isSpinning || wheelSegments.length === 0) return; isSpinning = true; SoundFX.init();
-            let spinSeconds = parseInt(document.getElementById("liveSecondsInput").value) || 15;
-            const canvas = document.getElementById("wheelCanvas"); canvas.style.transition = `transform ${spinSeconds}s cubic-bezier(0.1, 0.85, 0.25, 1)`;
-            const numSegs = wheelSegments.length; const totalDegreesToRotate = 360 * (spinSeconds * 1.2) + Math.floor(Math.random() * 360); currentRotationAngle += totalDegreesToRotate; canvas.style.transform = `rotate(${currentRotationAngle}deg)`;
-            let startTimestamp = null; let lastSegmentIdx = -1;
-            function playConsoleDynamicAudio(timestamp) {
-                if (!startTimestamp) startTimestamp = timestamp; let elapsed = (timestamp - startTimestamp) / 1000; if (elapsed >= spinSeconds) return;
-                let progress = elapsed / spinSeconds; let easeOutFactor = 1 - Math.pow(1 - progress, 3); let currentPosDegrees = (currentRotationAngle - totalDegreesToRotate) + (totalDegreesToRotate * easeOutFactor); let currentSegmentIdx = Math.floor(((360 - (currentPosDegrees % 360)) % 360) / (360 / numSegs));
-                if (currentSegmentIdx !== lastSegmentIdx) { try { const osc = SoundFX.ctx.createOscillator(); const gain = SoundFX.ctx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(550, SoundFX.ctx.currentTime); gain.gain.setValueAtTime(0.04, SoundFX.ctx.currentTime); gain.gain.linearRampToValueAtTime(0.001, SoundFX.ctx.currentTime + 0.03); osc.connect(gain); gain.connect(SoundFX.ctx.destination); osc.start(); osc.stop(SoundFX.ctx.currentTime + 0.03); } catch (e) { } lastSegmentIdx = currentSegmentIdx; }
-                if (isSpinning) requestAnimationFrame(playConsoleDynamicAudio);
+            let spinSeconds = parseFloat(document.getElementById("liveSecondsInput").value) || 5;
+            let totalDurationMs = spinSeconds * 1000; let startTimestamp = null;
+            let startAngle = currentRotationAngle % (2 * Math.PI);
+            let totalRotationToTarget = (Math.PI * 2 * 12) + (Math.random() * Math.PI * 2); let lastIdx = -1;
+
+            function stepAnimateWheelTime(timestamp) {
+                if (!startTimestamp) startTimestamp = timestamp; let elapsed = timestamp - startTimestamp;
+                let t = elapsed / totalDurationMs; if (t > 1) t = 1;
+                let easeOutProgression = 1 - Math.pow(1 - t, 3);
+                let currentRad = startAngle + (totalRotationToTarget * easeOutProgression);
+                let liveActiveWinnerIdx = drawConsoleWheelGraphic(currentRad);
+                if (liveActiveWinnerIdx !== lastIdx) {
+                    try {
+                        const osc = SoundFX.ctx.createOscillator(); const gain = SoundFX.ctx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(550, SoundFX.ctx.currentTime); gain.gain.setValueAtTime(0.04, SoundFX.ctx.currentTime); gain.gain.linearRampToValueAtTime(0.001, SoundFX.ctx.currentTime + 0.02); osc.connect(gain); gain.connect(this.ctx.destination); osc.start(); osc.stop(this.ctx.currentTime + 0.02);
+                    } catch (e) { } lastIdx = liveActiveWinnerIdx;
+                }
+                if (elapsed < totalDurationMs) { requestAnimationFrame(stepAnimateWheelTime); } else { isSpinning = false; currentRotationAngle = currentRad; SoundFX.playWin(); document.getElementById("spinResultValue").innerText = wheelSegments[liveActiveWinnerIdx]; document.getElementById("mask").style.display = "block"; document.getElementById("spinResultBox").style.display = "block"; }
             }
-            requestAnimationFrame(playConsoleDynamicAudio);
-            setTimeout(() => { isSpinning = false; let netDegrees = currentRotationAngle % 360; let winningIndex = Math.floor(((360 - netDegrees) % 360) / (360 / numSegs)); if (winningIndex < 0) winningIndex = 0; SoundFX.playWin(); document.getElementById("spinResultValue").innerText = wheelSegments[winningIndex]; document.getElementById("mask").style.display = "block"; document.getElementById("spinResultBox").style.display = "block"; }, spinSeconds * 1000);
+            requestAnimationFrame(stepAnimateWheelTime);
         }
 
         function closeConsoleSpinPopup() { document.getElementById("mask").style.display = "none"; document.getElementById("spinResultBox").style.display = "none"; }
