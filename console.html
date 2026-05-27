@@ -330,12 +330,12 @@
             background: #007aff;
         }
 
-        /* ENGINE PACK 3: BEHIND THE CARD GRID (RESPONSIVE VIEW) */
+        /* ENGINE CONTROLS LAYOUT */
         .main-content-layout {
             display: none;
             width: 100%;
             height: calc(100% - 140px);
-            grid-template-columns: 100px 1fr 100px;
+            grid-template-columns: 110px 1fr 110px;
             align-items: center;
             padding: 5px;
             box-sizing: border-box;
@@ -344,7 +344,7 @@
         .score-control {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
             justify-content: center;
         }
@@ -388,9 +388,9 @@
         .btn-minus {
             background-color: #7f8c8d;
             color: white;
-            width: 45px;
+            width: 50px;
             height: 28px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: bold;
             border-radius: 5px;
             border: none;
@@ -411,9 +411,10 @@
             align-items: center;
             box-sizing: border-box;
             padding: 5px;
+            overflow: hidden;
         }
 
-        /* 🛠 ⚡ ဖုန်းစခရင်မှာပါ ကွက်တိအလိုအလျောက် သေးကျုံ့ပေးမယ့် Flexible Fluid Grid Board */
+        /* Behind the Card Grid (4x3) Layout style */
         .grid-board {
             position: relative;
             width: 100%;
@@ -445,60 +446,22 @@
             z-index: 1;
         }
 
-        .card-slot {
-            position: relative;
-            z-index: 2;
-            background: transparent;
-        }
-
-        .card-cover {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #2c3e50, #1a252f);
-            color: white;
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            user-select: none;
-            outline: 1px solid #2c3e50;
-            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s ease;
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .card-cover:hover {
-            background: linear-gradient(135deg, #34495e, #2c3e50);
-        }
-
-        .card-slot.revealed .card-cover {
-            opacity: 0;
-            transform: scale(0.8);
-            pointer-events: none;
-        }
-
-        /* ENGINE PACK 1: MATCH UP GRID FIELD */
+        /* Match up Grid Field (6 Columns style) */
         .matchup-grid-field {
-            display: none;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
             width: 100%;
-            max-width: 800px;
+            max-width: 1000px;
             margin: auto;
             perspective: 1200px;
             justify-content: center;
-            overflow-y: auto;
-            max-height: calc(100% - 150px);
-            padding: 5px;
+            box-sizing: border-box;
         }
 
         .card-container {
-            height: 75px;
+            width: 100%;
+            aspect-ratio: 1 / 1;
             perspective: 1200px;
             cursor: pointer;
         }
@@ -543,11 +506,13 @@
         .card-back {
             background: linear-gradient(135deg, #1abc9c, #2ecc71);
             color: white;
-            font-size: 12px;
+            font-size: 20px;
+            font-weight: bold;
             transform: rotateY(180deg);
             word-break: break-word;
             overflow: hidden;
             border: 2px solid #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .card-back img {
@@ -567,17 +532,25 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+            font-size: 38px;
             font-weight: bold;
             opacity: 0;
+            border-radius: 6px;
+            transition: opacity 0.2s;
         }
 
         .feedback-correct {
-            color: #2ecc71;
+            background: rgba(46, 204, 113, 0.4);
+            color: #fff;
         }
 
         .feedback-wrong {
-            color: #e74c3c;
+            background: rgba(231, 76, 60, 0.35);
+            color: #ffffff;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 4px 6px;
+            font-size: 16px;
         }
 
         .card-container.fall-down .card-inner {
@@ -596,7 +569,7 @@
             }
         }
 
-        /* ENGINE PACK 2: SPIN WHEEL EMBEDDED FIELD */
+        /* 🛠 ⚡ ENGINE PACK 2: SPIN WHEEL EMBEDDED FIELD (ချားရဟတ်ကို ကြီးကြီးမားမား ချဲ့ပေးထားသော CSS) */
         .spin-container {
             display: none;
             flex-direction: column;
@@ -606,29 +579,30 @@
             position: relative;
             width: 100%;
             z-index: 10;
-            height: calc(100% - 150px);
+            height: calc(100% - 140px);
         }
 
         .ferris-wheel-frame {
             position: relative;
             width: 100%;
-            max-width: 440px;
+            max-width: 580px;
             height: 100%;
-            max-height: 380px;
+            max-height: 520px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
+        /* ရဟတ်ဝိုင်းကြီးတစ်ခုလုံးကို စခရင်အပြည့် အကြီးဆုံး ချဲ့ပေးလိုက်ခြင်း */
         .wheel-wrapper {
             position: absolute;
             top: 0;
-            width: 330px;
-            height: 330px;
+            width: 450px;
+            height: 450px;
             border-radius: 50%;
-            border: 3px solid #ffffff;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            border: 4px solid #ffffff;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
             background: #ffffff;
             z-index: 10;
             display: flex;
@@ -638,10 +612,10 @@
 
         .ferris-iron-leg-left {
             position: absolute;
-            bottom: -20px;
-            left: 110px;
-            width: 10px;
-            height: 220px;
+            bottom: -35px;
+            left: 140px;
+            width: 12px;
+            height: 280px;
             background: linear-gradient(to right, #bdc3c7, #ffffff, #7f8c8d);
             transform: rotate(18deg);
             transform-origin: bottom center;
@@ -650,10 +624,10 @@
 
         .ferris-iron-leg-right {
             position: absolute;
-            bottom: -20px;
-            right: 110px;
-            width: 10px;
-            height: 220px;
+            bottom: -35px;
+            right: 140px;
+            width: 12px;
+            height: 280px;
             background: linear-gradient(to right, #bdc3c7, #ffffff, #7f8c8d);
             transform: rotate(-18deg);
             transform-origin: bottom center;
@@ -662,10 +636,10 @@
 
         .leg-foot-left {
             position: absolute;
-            bottom: -28px;
-            left: 90px;
-            width: 28px;
-            height: 10px;
+            bottom: -45px;
+            left: 110px;
+            width: 36px;
+            height: 12px;
             background: #7f8d8d;
             border-radius: 3px;
             z-index: 6;
@@ -673,36 +647,37 @@
 
         .leg-foot-right {
             position: absolute;
-            bottom: -28px;
-            right: 90px;
-            width: 28px;
-            height: 10px;
+            bottom: -45px;
+            right: 110px;
+            width: 36px;
+            height: 12px;
             background: #7f8d8d;
             border-radius: 3px;
             z-index: 6;
         }
 
+        /* Pointer မြှားကိုလည်း ရဟတ်အကြီးစားနဲ့ ကိုက်ညီအောင် နေရာချခြင်း */
         .wheel-pointer-right {
             position: absolute;
-            top: 165px;
-            right: -18px;
+            top: 225px;
+            right: -24px;
             transform: translateY(-50%);
             width: 0;
             height: 0;
-            border-top: 18px solid transparent;
-            border-bottom: 18px solid transparent;
-            border-right: 40px solid #e74c3c;
+            border-top: 24px solid transparent;
+            border-bottom: 24px solid transparent;
+            border-right: 50px solid #e74c3c;
             z-index: 30;
             filter: drop-shadow(-3px 3px 5px rgba(0, 0, 0, 0.5));
         }
 
         .center-hub {
             position: absolute;
-            top: 165px;
+            top: 225px;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 65px;
-            height: 65px;
+            width: 75px;
+            height: 75px;
             background: radial-gradient(circle, #ffffff, #cbd5e1, #7f8c8d);
             border: 3px solid #95a5a6;
             border-radius: 50%;
@@ -714,13 +689,13 @@
         }
 
         .spin-trigger-btn {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             background: linear-gradient(135deg, #f39c12, #e67e22, #d35400);
             border: none;
             border-radius: 50%;
             color: white;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             cursor: pointer;
         }
@@ -735,7 +710,7 @@
             align-items: center;
             gap: 10px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             z-index: 20;
             font-size: 13px;
         }
@@ -796,6 +771,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
+        /* 🛠 ⚡ POPUP BOX MODIFICATION (ခလုတ် ၂ ခုပါဝင်သော Winner Popup ပုံစံအသစ်) */
         .spin-result-popup {
             display: none;
             position: fixed;
@@ -804,31 +780,55 @@
             transform: translate(-50%, -50%);
             background: #ffffff;
             color: #2c3e50;
-            padding: 20px 40px;
-            border-radius: 12px;
+            padding: 25px 35px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
             z-index: 3000;
-            border: 3px solid #f1c40f;
-            min-width: 240px;
+            border: 4px solid #f1c40f;
+            min-width: 290px;
+        }
+
+        .spin-result-popup h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
         }
 
         .spin-result-popup div {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: bold;
-            margin-top: 8px;
+            margin: 12px 0;
             color: #e67e22;
+            word-break: break-word;
         }
 
-        .btn-close-spin-popup {
+        .popup-btn-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
             margin-top: 15px;
-            background: #2c3e50;
-            color: white;
-            padding: 8px 20px;
+        }
+
+        .btn-popup {
+            padding: 10px 20px;
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 6px;
             border: none;
             cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-popup-remove {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-popup-keep {
+            background: #2ecc71;
+            color: white;
         }
 
         .overlay-mask {
@@ -890,95 +890,89 @@
             font-size: 12px;
         }
 
-        /* 🛠 ⚡ MOBILE SCREEN OPTIMIZATION MEDIA QUERIES (ဖုန်းစခရင်အလျားလိုက်/အဒေါင်လိုက်အကုန်ရစေရန်) */
+        /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 768px) {
             .main-content-layout {
-                grid-template-columns: 80px 1fr 80px;
+                grid-template-columns: 75px 1fr 75px;
+                padding: 2px;
             }
 
             .control-btn {
-                width: 55px;
-                height: 55px;
-                font-size: 1.4rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
             }
 
             .team-score-card {
-                width: 140px;
-                font-size: 0.9rem;
-                padding: 6px 10px;
+                width: 120px;
+                font-size: 0.85rem;
+                padding: 4px 8px;
             }
 
             .score-num {
-                font-size: 0.9rem;
-                padding: 1px 8px;
+                font-size: 0.85rem;
+                padding: 1px 6px;
             }
 
             .round-info {
-                font-size: 0.85rem;
-                padding: 3px 10px;
+                font-size: 0.8rem;
+                padding: 3px 8px;
             }
 
             .card-cover {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
             }
 
+            .card-front {
+                font-size: 14px;
+            }
+
+            .card-back {
+                font-size: 11px;
+            }
+
+            .matchup-grid-field {
+                gap: 6px;
+            }
+
+            /* ဖုန်းစခရင်အရွယ်အစားအတွက် ချားရဟတ်ကို အမြင့်ဆုံးညှိပေးခြင်း */
             .wheel-wrapper {
-                width: 260px;
-                height: 260px;
+                width: 340px;
+                height: 340px;
             }
 
             .wheel-pointer-right {
-                top: 130px;
-                right: -15px;
-                border-right-width: 32px;
-                border-top-width: 14px;
-                border-bottom-width: 14px;
+                top: 170px;
+                right: -20px;
+                border-right-width: 38px;
+                border-top-width: 16px;
+                border-bottom-width: 16px;
             }
 
             .center-hub {
-                top: 130px;
-                width: 50px;
-                height: 50px;
+                top: 170px;
+                width: 60px;
+                height: 60px;
             }
 
             .spin-trigger-btn {
-                width: 38px;
-                height: 38px;
-                font-size: 9px;
+                width: 44px;
+                height: 44px;
+                font-size: 10px;
             }
 
             .ferris-iron-leg-left,
             .ferris-iron-leg-right {
-                height: 160px;
-                bottom: -15px;
+                height: 200px;
+                bottom: -20px;
             }
 
             .ferris-iron-leg-left {
-                left: 80px;
+                left: 95px;
             }
 
             .ferris-iron-leg-right {
-                right: 80px;
-            }
-
-            .leg-foot-left {
-                left: 68px;
-            }
-
-            .leg-foot-right {
-                right: 68px;
-            }
-
-            .card-container {
-                height: 60px;
-            }
-
-            .card-front {
-                font-size: 16px;
-            }
-
-            .card-back {
-                font-size: 9px;
+                right: 95px;
             }
         }
     </style>
@@ -1044,7 +1038,7 @@
                 </div>
             </div>
 
-            <div class="main-content-layout" id="behindCardEngineView">
+            <div class="main-content-layout" id="universalCoreGamefieldLayout">
                 <div class="score-control">
                     <button class="control-btn btn-correct" onclick="handleScore(true)">✅</button>
                     <span>Correct</span>
@@ -1052,7 +1046,7 @@
                 </div>
 
                 <div class="board-container">
-                    <div class="grid-board" id="gridBoard">
+                    <div class="grid-board" id="gridBoard" style="display: none;">
                         <div class="hidden-image-holder" id="secretImage"></div>
                         <div class="card-slot" onclick="revealCard(this)">
                             <div class="card-cover">1</div>
@@ -1091,6 +1085,8 @@
                             <div class="card-cover">12</div>
                         </div>
                     </div>
+
+                    <div class="matchup-grid-field" id="matchUpEngineView" style="display: none;"></div>
                 </div>
 
                 <div class="score-control">
@@ -1099,8 +1095,6 @@
                     <button class="btn-minus" onclick="modifyScoreManual(-1)">-1</button>
                 </div>
             </div>
-
-            <div class="matchup-grid-field" id="matchUpEngineView"></div>
 
             <div class="spin-container" id="spinWheelEngineView">
                 <div class="live-spin-time-box"><span>⏱ Spin:</span><input type="number" id="liveSecondsInput" value="5"
@@ -1111,7 +1105,7 @@
                     <div class="leg-foot-left"></div>
                     <div class="leg-foot-right"></div>
                     <div class="wheel-wrapper">
-                        <canvas id="wheelCanvas" width="330" height="330"></canvas>
+                        <canvas id="wheelCanvas" width="450" height="450"></canvas>
                         <div class="wheel-pointer-right" id="wheelPointer"></div>
                     </div>
                     <div class="center-hub"><button class="spin-trigger-btn"
@@ -1132,16 +1126,21 @@
     </div>
 
     <div class="overlay-mask" id="mask"></div>
+
     <div class="spin-result-popup" id="spinResultBox">
         <h3>Selected Winner</h3>
         <div id="spinResultValue">-</div>
-        <button class="btn-close-spin-popup" onclick="closeConsoleSpinPopup()">OK</button>
+        <div class="popup-btn-container">
+            <button class="btn-popup btn-popup-remove" onclick="removeWinnerNamePermanently()">❌ Remove Name</button>
+            <button class="btn-popup btn-popup-keep" onclick="closeConsoleSpinPopup()">✅ Keep & Close</button>
+        </div>
     </div>
 
     <script>
         let installedGames = []; let activePairsData = []; let flippedCards = []; let matchesFound = 0; let totalMatches = 0;
         let currentRomObject = null; let gameMode = 'solo'; let activeTurn = 1; let scores = { 1: 0, 2: 0 };
         let wheelSegments = []; let currentRotationAngle = 0; let isSpinning = false; let currentIdx = 0; let isTransitioning = false;
+        let lastWinnerIndex = -1; // ကျလာတဲ့ နာမည်အညွှန်းကို မှတ်မည့် Variable
 
         const segmentColors = ["#1abc9c", "#e67e22", "#3498db", "#2ecc71", "#9b59b6", "#f1c40f", "#34495e", "#e74c3c", "#16a085", "#27ae60", "#2980b9", "#8e44ad"];
         const hidingLayouts = [
@@ -1200,9 +1199,11 @@
             scores = { 1: 0, 2: 0 }; activeTurn = 1; document.getElementById("scoreNum1").innerText = "0"; document.getElementById("scoreNum2").innerText = "0";
             document.getElementById("liveTeamConfig").style.display = "none"; currentIdx = 0; isTransitioning = false;
 
+            // View Safety Reset Block
+            document.getElementById("universalCoreGamefieldLayout").style.display = "none";
             document.getElementById("matchUpEngineView").style.display = "none";
+            document.getElementById("gridBoard").style.display = "none";
             document.getElementById("spinWheelEngineView").style.display = "none";
-            document.getElementById("behindCardEngineView").style.display = "none";
             document.getElementById("universalControlNavbar").style.display = "none";
             document.getElementById("scoreboardHeader").style.display = "flex";
             document.getElementById("classicModeSwitcher").style.display = "flex";
@@ -1210,8 +1211,17 @@
 
             if (currentRomObject.gameType === 'match_up') {
                 document.getElementById("arenaStyleFrame").className = "game-arena match-bg";
+                document.getElementById("universalCoreGamefieldLayout").style.display = "grid";
                 document.getElementById("matchUpEngineView").style.display = "grid";
-                switchLiveMode('solo');
+
+                document.getElementById("universalControlNavbar").style.display = "flex";
+                document.getElementById("prevBtn").style.display = "none";
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("resetGridBtn").style.display = "none";
+                document.getElementById("revealImageBtn").style.display = "none";
+                document.getElementById("exitConsoleBtn").style.display = "block";
+
+                switchLiveMode('team');
                 runMatchUpEngineView();
             } else if (currentRomObject.gameType === 'spin_wheel') {
                 document.getElementById("arenaStyleFrame").className = "game-arena spin-bg";
@@ -1229,7 +1239,8 @@
                 wheelSegments = activePairsData.map(p => p.a); currentRotationAngle = 0; drawConsoleWheelGraphic(0);
             } else if (currentRomObject.gameType === 'behind_the_card') {
                 document.getElementById("arenaStyleFrame").className = "game-arena match-bg";
-                document.getElementById("behindCardEngineView").style.display = "grid";
+                document.getElementById("universalCoreGamefieldLayout").style.display = "grid";
+                document.getElementById("gridBoard").style.display = "grid";
                 document.getElementById("scoreboardHeader").style.display = "grid";
                 document.getElementById("classicModeSwitcher").style.display = "none";
                 document.getElementById("roundLabel").style.display = "block";
@@ -1361,19 +1372,20 @@
 
         /* ---------------- ENGINE 2 LOGICS (SPIN WHEEL) ---------------- */
         function drawConsoleWheelGraphic(currentRotationRad) {
-            const canvas = document.getElementById("wheelCanvas"); const ctx = canvas.getContext("2d"); ctx.clearRect(0, 0, 330, 330);
-            const numSegs = wheelSegments.length; const arcSize = (2 * Math.PI) / numSegs;
-            ctx.save(); ctx.translate(165, 165); ctx.rotate(currentRotationRad);
+            const canvas = document.getElementById("wheelCanvas"); const ctx = canvas.getContext("2d"); ctx.clearRect(0, 0, 450, 450);
+            const numSegs = wheelSegments.length; if (numSegs === 0) return 0;
+            const arcSize = (2 * Math.PI) / numSegs;
+            ctx.save(); ctx.translate(225, 225); ctx.rotate(currentRotationRad);
             for (let i = 0; i < numSegs; i++) {
-                ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, 160, i * arcSize, (i + 1) * arcSize);
+                ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, 220, i * arcSize, (i + 1) * arcSize);
                 let colorIdx = i; if (numSegs % 2 !== 0 && i === numSegs - 1) { colorIdx = 4; }
-                ctx.fillStyle = segmentColors[colorIdx % segmentColors.length]; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "#ffffff"; ctx.stroke();
+                ctx.fillStyle = segmentColors[colorIdx % segmentColors.length]; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = "#ffffff"; ctx.stroke();
                 ctx.save(); ctx.rotate((i + 0.5) * arcSize); ctx.fillStyle = "white";
-                let text = wheelSegments[i]; let fontSize = 12; if (text.length > 12) fontSize = 10; if (text.length > 20) fontSize = 8;
-                ctx.font = `bold ${fontSize}px sans-serif`; ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(text, 145, 0); ctx.restore();
+                let text = wheelSegments[i]; let fontSize = 16; if (text.length > 12) fontSize = 13; if (text.length > 20) fontSize = 10;
+                ctx.font = `bold ${fontSize}px sans-serif`; ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(text, 205, 0); ctx.restore();
             }
             ctx.restore();
-            const grad = ctx.createRadialGradient(165, 165, 15, 165, 165, 160); grad.addColorStop(0, 'rgba(255,255,255,0.05)'); grad.addColorStop(1, 'rgba(0,0,0,0.3)'); ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(165, 165, 160, 0, Math.PI * 2); ctx.fill();
+            const grad = ctx.createRadialGradient(225, 225, 20, 225, 225, 220); grad.addColorStop(0, 'rgba(255,255,255,0.05)'); grad.addColorStop(1, 'rgba(0,0,0,0.3)'); ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(225, 225, 220, 0, Math.PI * 2); ctx.fill();
             let normalizedAngle = (2 * Math.PI - (currentRotationRad % (2 * Math.PI))) % (2 * Math.PI);
             let targetIdx = Math.floor(normalizedAngle / arcSize); if (targetIdx < 0 || targetIdx >= numSegs) targetIdx = 0;
             let finalColorIdx = targetIdx; if (numSegs % 2 !== 0 && targetIdx === numSegs - 1) { finalColorIdx = 4; }
@@ -1399,9 +1411,26 @@
                         const osc = SoundFX.ctx.createOscillator(); const gain = SoundFX.ctx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(550, SoundFX.ctx.currentTime); gain.gain.setValueAtTime(0.04, SoundFX.ctx.currentTime); gain.gain.linearRampToValueAtTime(0.001, SoundFX.ctx.currentTime + 0.02); osc.connect(gain); gain.connect(SoundFX.ctx.destination); osc.start(); osc.stop(SoundFX.ctx.currentTime + 0.02);
                     } catch (e) { } lastIdx = liveActiveWinnerIdx;
                 }
-                if (elapsed < totalDurationMs) { requestAnimationFrame(stepAnimateWheelTime); } else { isSpinning = false; currentRotationAngle = currentRad; SoundFX.playWin(); document.getElementById("spinResultValue").innerText = wheelSegments[liveActiveWinnerIdx]; document.getElementById("mask").style.display = "block"; document.getElementById("spinResultBox").style.display = "block"; }
+                if (elapsed < totalDurationMs) { requestAnimationFrame(stepAnimateWheelTime); } else {
+                    isSpinning = false; currentRotationAngle = currentRad; lastWinnerIndex = liveActiveWinnerIdx;
+                    SoundFX.playWin();
+                    document.getElementById("spinResultValue").innerText = wheelSegments[liveActiveWinnerIdx];
+                    document.getElementById("mask").style.display = "block";
+                    document.getElementById("spinResultBox").style.display = "block";
+                }
             }
             requestAnimationFrame(stepAnimateWheelTime);
+        }
+
+        /* 🛠 ⚡ နာမည်အား ရဟတ်ဝိုင်းထဲမှ အပြီးအပိုင် ဖြုတ်ပစ်မည့် Logic အသစ် */
+        function removeWinnerNamePermanently() {
+            if (lastWinnerIndex > -1 && wheelSegments.length > 0) {
+                wheelSegments.splice(lastWinnerIndex, 1); // ရွေးချယ်ခံရသော နာမည်အား Array ထဲမှ ဖျက်ထုတ်ခြင်း
+                lastWinnerIndex = -1;
+                currentRotationAngle = 0;
+                drawConsoleWheelGraphic(0); // ရဟတ်အား နာမည်အသစ်များဖြင့် ပြန်လည်ရေးဆွဲခြင်း
+            }
+            closeConsoleSpinPopup();
         }
 
         function closeConsoleSpinPopup() { document.getElementById("mask").style.display = "none"; document.getElementById("spinResultBox").style.display = "none"; }
