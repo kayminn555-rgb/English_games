@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Behind the Card - ROM Maker</title>
+    <title>Behind the Card - Advanced ROM Maker</title>
     <style>
         body {
             margin: 0;
@@ -44,10 +44,55 @@
         label {
             font-weight: bold;
             display: block;
-            margin-top: 15px;
+            margin-top: 18px;
             color: #cbd5e1;
             font-size: 13px;
             text-transform: uppercase;
+        }
+
+        /* Upload Button Component Styling */
+        .file-upload-wrapper {
+            margin-top: 8px;
+            position: relative;
+            display: block;
+        }
+
+        .file-upload-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            border: 2px dashed rgba(255, 255, 255, 0.4);
+            text-align: center;
+            transition: background 0.2s;
+        }
+
+        .file-upload-btn:hover {
+            background: #2980b9;
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-count-status {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #2ecc71;
+            font-weight: bold;
         }
 
         input[type="text"],
@@ -66,7 +111,7 @@
         }
 
         textarea {
-            height: 140px;
+            height: 100px;
             resize: none;
         }
 
@@ -75,6 +120,15 @@
             outline: none;
             border-color: #f1c40f;
             background: rgba(255, 255, 255, 0.15);
+        }
+
+        .divider-text {
+            text-align: center;
+            margin: 15px 0 5px 0;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
         }
 
         .btn-export {
@@ -106,7 +160,6 @@
             line-height: 1.5;
         }
 
-        /* 🛠 Mobile Optimizations */
         @media (max-width: 480px) {
             .studio-box {
                 padding: 18px;
@@ -119,13 +172,10 @@
 
             input[type="text"],
             textarea,
-            .btn-export {
+            .btn-export,
+            .file-upload-btn {
                 font-size: 14px;
                 padding: 10px;
-            }
-
-            textarea {
-                height: 120px;
             }
 
             .info-card {
@@ -141,40 +191,103 @@
     <div class="studio-box">
         <h2>📷 Behind Card ROM Maker</h2>
         <div class="info-card">
-            💡 <b>Instructions:</b> Paste your secret image URLs below (one link per line). This factory will
-            automatically generate a game file with the <code>behind_the_card</code> engine identifier.
+            💡 <b>Instructions:</b> You can now either upload local photos directly from your device OR paste internet
+            image URLs to generate your classroom game file (.txt ROM).
         </div>
 
         <label>📌 Enter Game Title:</label>
         <input type="text" id="gameTitle" value="Guess the Hidden Picture">
 
-        <label>🔗 Paste Image Links (One link per line):</label>
+        <label>🖼️ Option 1: Choose Photos from Device:</label>
+        <div class="file-upload-wrapper">
+            <div class="file-upload-btn">📁 Click to Select Images (Multiple Available)</div>
+            <input type="file" id="localPhotoSelector" multiple accept="image/*"
+                onchange="handleLocalFilesSelection(event)">
+        </div>
+        <div class="file-count-status" id="fileUploadStatus">No files selected (0 photos ready)</div>
+
+        <div class="divider-text">─── OR ───</div>
+
+        <label>🔗 Option 2: Paste Internet Image Links (One per line):</label>
         <textarea id="urlLinks"
             placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.png"></textarea>
 
-        <button class="btn-export" onclick="exportBehindCardROM()">📥 Export ROM File (.txt)</button>
+        <button class="btn-export" onclick="exportBehindCardROMAdvanced()">📥 Export ROM File (.txt)</button>
     </div>
 
     <script>
-        function exportBehindCardROM() {
+        // Upload လုပ်ထားသော Device ထဲက ဓာတ်ပုံများကို ယာယီသိမ်းဆည်းမည့် Array List
+        let loadedBase64ImagesArray = [];
+
+        // Device ထဲကပုံများကို စက်ထဲဖတ်ပြီး Base64 Data String အဖြစ် ပြောင်းလဲခြင်း
+        function handleLocalFilesSelection(event) {
+            const files = event.target.files;
+            loadedBase64ImagesArray = []; // Reset old selections
+
+            if (files.length === 0) {
+                document.getElementById("fileUploadStatus").innerText = "No files selected (0 photos ready)";
+                document.getElementById("fileUploadStatus").style.color = "#7f8c8d";
+                return;
+            }
+
+            let loadedCount = 0;
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    loadedBase64ImagesArray.push(e.target.result); // Base64 String ကို ထည့်ခြင်း
+                    loadedCount++;
+
+                    if (loadedCount === files.length) {
+                        document.getElementById("fileUploadStatus").innerText = `✅ Successfully loaded ${files.length} photo(s) from device!`;
+                        document.getElementById("fileUploadStatus").style.color = "#2ecc71";
+                    }
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function exportBehindCardROMAdvanced() {
             const title = document.getElementById("gameTitle").value.trim() || "Behind-the-Card";
             const urlsText = document.getElementById("urlLinks").value.trim();
-            if (!urlsText) { alert("Please paste at least one image link!"); return; }
-            let imageLinksArray = [];
-            urlsText.split('\n').forEach(url => { if (url.trim() !== "") { imageLinksArray.push(url.trim()); } });
-            if (imageLinksArray.length === 0) { alert("Please paste valid image links!"); return; }
 
+            let finalMergedImagesList = [];
+
+            // ၁။ အကယ်၍ Device ထဲက ဓာတ်ပုံရွေးထားရင် အရင်ထည့်မယ်
+            if (loadedBase64ImagesArray.length > 0) {
+                loadedBase64ImagesArray.forEach(base64Data => {
+                    finalMergedImagesList.push(base64Data);
+                });
+            }
+
+            // ၂။ အကယ်၍ အင်တာနက်လင့်ခ်တွေ ရိုက်ထည့်ထားရင်လည်း ပေါင်းထည့်မယ်
+            if (urlsText !== "") {
+                urlsText.split('\n').forEach(url => {
+                    if (url.trim() !== "") {
+                        finalMergedImagesList.push(url.trim());
+                    }
+                });
+            }
+
+            // ဓာတ်ပုံ လုံးဝမရှိပါက Refuse လုပ်မည်
+            if (finalMergedImagesList.length === 0) {
+                alert("Please either choose local photos from device OR paste internet image links!");
+                return;
+            }
+
+            // Console Engine Template ပုံစံအတိုင်း Formatting ကျကျ တည်ဆောက်ခြင်း
             const romObject = {
                 title: title,
                 gameType: "behind_the_card",
-                pairs: imageLinksArray.map(url => ({ a: url, b: "" }))
+                pairs: finalMergedImagesList.map(img => ({ a: img, b: "" }))
             };
 
             const dataBlob = new Blob([JSON.stringify(romObject)], { type: "text/plain" });
             const downloader = document.createElement("a");
             downloader.href = URL.createObjectURL(dataBlob);
             downloader.download = `${title}.txt`;
-            document.body.appendChild(downloader); downloader.click(); document.body.removeChild(downloader);
+            document.body.appendChild(downloader);
+            downloader.click();
+            document.body.removeChild(downloader);
         }
     </script>
 </body>
