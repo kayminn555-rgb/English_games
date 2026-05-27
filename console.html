@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PlayStation 4 - Custom Educational Emulator</title>
     <style>
         /* CSS: PS4 Blue Gradient Theme */
@@ -49,14 +49,14 @@
             flex-direction: column;
             justify-content: space-between;
             box-sizing: border-box;
-            padding: 40px 60px;
+            padding: 20px 30px;
         }
 
         .ps4-top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 16px;
+            font-size: 14px;
             color: rgba(255, 255, 255, 0.7);
         }
 
@@ -80,7 +80,7 @@
         }
 
         .system-title {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 25px;
             text-transform: uppercase;
@@ -101,8 +101,8 @@
         }
 
         .insert-disc-card {
-            min-width: 180px;
-            height: 180px;
+            min-width: 160px;
+            height: 160px;
             background: rgba(255, 255, 255, 0.06);
             border: 2px dashed rgba(255, 255, 255, 0.3);
             border-radius: 12px;
@@ -124,7 +124,7 @@
         }
 
         .disc-icon {
-            font-size: 44px;
+            font-size: 40px;
             margin-bottom: 10px;
             animation: spinDisc 4s infinite linear;
         }
@@ -136,8 +136,8 @@
         }
 
         .ps4-game-card {
-            min-width: 180px;
-            height: 180px;
+            min-width: 160px;
+            height: 160px;
             border: 3px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px;
             display: flex;
@@ -175,7 +175,7 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: bold;
             background: #007aff;
             padding: 3px 8px;
@@ -185,7 +185,7 @@
         }
 
         .game-card-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
@@ -194,7 +194,7 @@
         }
 
         .game-card-type {
-            font-size: 10px;
+            font-size: 9px;
             color: #f1c40f;
             text-transform: uppercase;
             font-weight: bold;
@@ -222,7 +222,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
+            padding: 10px;
             box-sizing: border-box;
         }
 
@@ -241,30 +241,31 @@
         /* SCOREBOARD SYSTEM */
         .scoreboard {
             display: flex;
-            width: 95%;
+            width: 100%;
             max-width: 1200px;
             justify-content: space-between;
             align-items: center;
             background: rgba(44, 62, 80, 0.95);
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 10px;
             border: 2px solid #ffffff;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
             z-index: 20;
+            box-sizing: border-box;
         }
 
         .score-side-container {
             display: flex;
-            gap: 20px;
+            gap: 10px;
             align-items: center;
             width: 100%;
             justify-content: space-between;
         }
 
         .team-score-card {
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 1.4rem;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
@@ -273,7 +274,8 @@
             align-items: center;
             background: rgba(255, 255, 255, 0.05);
             border: 2px solid transparent;
-            width: 300px;
+            width: 45%;
+            max-width: 260px;
             box-sizing: border-box;
         }
 
@@ -281,82 +283,83 @@
             background: #f39c12;
             color: #000;
             border-color: #fff;
-            box-shadow: 0 0 15px #f39c12;
-            transform: scale(1.03);
+            box-shadow: 0 0 12px #f39c12;
+            transform: scale(1.02);
         }
 
         .score-num {
             background: rgba(0, 0, 0, 0.5);
             color: white;
-            padding: 2px 14px;
+            padding: 2px 10px;
             border-radius: 20px;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            margin-left: 10px;
+            margin-left: 5px;
         }
 
         .round-info {
-            font-size: 1.3rem;
+            font-size: 1rem;
             font-weight: bold;
             background: #34495e;
-            padding: 5px 20px;
+            padding: 4px 12px;
             border-radius: 20px;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
         .live-mode-switcher {
             display: flex;
             background: rgba(0, 0, 0, 0.4);
-            padding: 4px;
+            padding: 2px;
             border-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .live-tab-btn {
-            padding: 8px 16px;
+            padding: 6px 12px;
             border: none;
             background: transparent;
             color: white;
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .live-tab-btn.active {
             background: #007aff;
         }
 
-        /* ENGINE PACK 3: BEHIND THE CARD GRID */
+        /* ENGINE PACK 3: BEHIND THE CARD GRID (RESPONSIVE VIEW) */
         .main-content-layout {
             display: none;
             width: 100%;
-            height: calc(100% - 160px);
-            grid-template-columns: 160px 1fr 160px;
+            height: calc(100% - 140px);
+            grid-template-columns: 100px 1fr 100px;
             align-items: center;
-            padding: 10px;
+            padding: 5px;
             box-sizing: border-box;
         }
 
         .score-control {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
             justify-content: center;
         }
 
         .control-btn {
-            width: 90px;
-            height: 90px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             border: none;
-            font-size: 2.4rem;
+            font-size: 1.8rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: transform 0.1s;
             user-select: none;
         }
@@ -377,32 +380,27 @@
 
         .score-control span {
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.8rem;
             text-align: center;
             color: rgba(255, 255, 255, 0.8);
         }
 
-        /* 🛠 အမှတ်ပြန်လျှော့နိုင်မည့် ခလုတ်ငယ်များအတွက် CSS */
         .btn-minus {
             background-color: #7f8c8d;
             color: white;
-            width: 55px;
-            height: 35px;
-            font-size: 1rem;
+            width: 45px;
+            height: 28px;
+            font-size: 0.8rem;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 5px;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
             transition: 0.1s;
             margin-top: 2px;
-        }
-
-        .btn-minus:active {
-            transform: scale(0.9);
         }
 
         .board-container {
@@ -412,20 +410,21 @@
             justify-content: center;
             align-items: center;
             box-sizing: border-box;
+            padding: 5px;
         }
 
+        /* 🛠 ⚡ ဖုန်းစခရင်မှာပါ ကွက်တိအလိုအလျောက် သေးကျုံ့ပေးမယ့် Flexible Fluid Grid Board */
         .grid-board {
             position: relative;
             width: 100%;
             height: 100%;
-            max-width: 75vh;
-            max-height: 55vh;
-            min-width: 500px;
-            min-height: 380px;
+            max-width: 72vh;
+            max-height: 52vh;
+            aspect-ratio: 4 / 3;
             background: #ffffff;
-            border: 6px solid #fff;
+            border: 4px solid #fff;
             border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(3, 1fr);
@@ -460,7 +459,7 @@
             height: 100%;
             background: linear-gradient(135deg, #2c3e50, #1a252f);
             color: white;
-            font-size: 2.8rem;
+            font-size: 1.8rem;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -486,17 +485,20 @@
         /* ENGINE PACK 1: MATCH UP GRID FIELD */
         .matchup-grid-field {
             display: none;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            gap: 12px;
-            width: 95%;
-            max-width: 1000px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            width: 100%;
+            max-width: 800px;
             margin: auto;
             perspective: 1200px;
             justify-content: center;
+            overflow-y: auto;
+            max-height: calc(100% - 150px);
+            padding: 5px;
         }
 
         .card-container {
-            height: 115px;
+            height: 75px;
             perspective: 1200px;
             cursor: pointer;
         }
@@ -508,8 +510,8 @@
             text-align: center;
             transition: transform 0.5s;
             transform-style: preserve-3d;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
         }
 
         .card-container.is-flipped .card-inner {
@@ -521,27 +523,27 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             box-sizing: border-box;
-            padding: 8px;
+            padding: 4px;
         }
 
         .card-front {
             background-color: #4a2711;
             background-image: linear-gradient(0deg, #3d1f0d 0%, #573018 100%);
             color: #f1c40f;
-            font-size: 32px;
+            font-size: 22px;
             border: 2px solid #2b1407;
         }
 
         .card-back {
             background: linear-gradient(135deg, #1abc9c, #2ecc71);
             color: white;
-            font-size: 16px;
+            font-size: 12px;
             transform: rotateY(180deg);
             word-break: break-word;
             overflow: hidden;
@@ -553,7 +555,7 @@
             height: 100%;
             object-fit: contain;
             background: white;
-            border-radius: 6px;
+            border-radius: 4px;
         }
 
         .feedback-overlay {
@@ -565,7 +567,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
+            font-size: 40px;
             font-weight: bold;
             opacity: 0;
         }
@@ -604,25 +606,29 @@
             position: relative;
             width: 100%;
             z-index: 10;
+            height: calc(100% - 150px);
         }
 
         .ferris-wheel-frame {
             position: relative;
-            width: 620px;
-            height: 500px;
+            width: 100%;
+            max-width: 440px;
+            height: 100%;
+            max-height: 380px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
 
         .wheel-wrapper {
             position: absolute;
-            top: 10px;
-            width: 450px;
-            height: 450px;
+            top: 0;
+            width: 330px;
+            height: 330px;
             border-radius: 50%;
             border: 3px solid #ffffff;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
             background: #ffffff;
             z-index: 10;
             display: flex;
@@ -632,82 +638,75 @@
 
         .ferris-iron-leg-left {
             position: absolute;
-            bottom: -30px;
-            left: 165px;
-            width: 14px;
-            height: 320px;
-            background: linear-gradient(to right, #bdc3c7 0%, #ffffff 30%, #95a5a6 70%, #7f8c8d 100%);
-            transform: rotate(19deg);
+            bottom: -20px;
+            left: 110px;
+            width: 10px;
+            height: 220px;
+            background: linear-gradient(to right, #bdc3c7, #ffffff, #7f8c8d);
+            transform: rotate(18deg);
             transform-origin: bottom center;
             z-index: 5;
-            border-radius: 4px;
-            border: 1px solid #7f8c8d;
-            box-shadow: -6px 5px 12px rgba(0, 0, 0, 0.4);
         }
 
         .ferris-iron-leg-right {
             position: absolute;
-            bottom: -30px;
-            right: 165px;
-            width: 14px;
-            height: 320px;
-            background: linear-gradient(to right, #bdc3c7 0%, #ffffff 30%, #95a5a6 70%, #7f8c8d 100%);
-            transform: rotate(-19deg);
+            bottom: -20px;
+            right: 110px;
+            width: 10px;
+            height: 220px;
+            background: linear-gradient(to right, #bdc3c7, #ffffff, #7f8c8d);
+            transform: rotate(-18deg);
             transform-origin: bottom center;
             z-index: 5;
-            border-radius: 4px;
-            border: 1px solid #7f8c8d;
-            box-shadow: 8px 5px 12px rgba(0, 0, 0, 0.4);
         }
 
         .leg-foot-left {
             position: absolute;
-            bottom: -42px;
-            left: 135px;
-            width: 36px;
-            height: 14px;
-            background: linear-gradient(to bottom, #bdc3c7, #7f8d8d);
+            bottom: -28px;
+            left: 90px;
+            width: 28px;
+            height: 10px;
+            background: #7f8d8d;
             border-radius: 3px;
             z-index: 6;
         }
 
         .leg-foot-right {
             position: absolute;
-            bottom: -42px;
-            right: 135px;
-            width: 36px;
-            height: 14px;
-            background: linear-gradient(to bottom, #bdc3c7, #7f8d8d);
+            bottom: -28px;
+            right: 90px;
+            width: 28px;
+            height: 10px;
+            background: #7f8d8d;
             border-radius: 3px;
             z-index: 6;
         }
 
         .wheel-pointer-right {
             position: absolute;
-            top: 225px;
-            right: -22px;
+            top: 165px;
+            right: -18px;
             transform: translateY(-50%);
             width: 0;
             height: 0;
-            border-top: 22px solid transparent;
-            border-bottom: 22px solid transparent;
-            border-right: 50px solid #e74c3c;
+            border-top: 18px solid transparent;
+            border-bottom: 18px solid transparent;
+            border-right: 40px solid #e74c3c;
             z-index: 30;
-            filter: drop-shadow(-4px 4px 6px rgba(0, 0, 0, 0.5));
-            transition: border-right-color 0.05s ease;
+            filter: drop-shadow(-3px 3px 5px rgba(0, 0, 0, 0.5));
         }
 
         .center-hub {
             position: absolute;
-            top: 225px;
+            top: 165px;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle, #ffffff 30%, #cbd5e1 70%, #7f8c8d 100%);
-            border: 4px solid #95a5a6;
+            width: 65px;
+            height: 65px;
+            background: radial-gradient(circle, #ffffff, #cbd5e1, #7f8c8d);
+            border: 3px solid #95a5a6;
             border-radius: 50%;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
             z-index: 40;
             display: flex;
             align-items: center;
@@ -715,36 +714,37 @@
         }
 
         .spin-trigger-btn {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #f39c12 0%, #e67e22 50%, #d35400 100%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f39c12, #e67e22, #d35400);
             border: none;
             border-radius: 50%;
             color: white;
-            font-size: 14px;
+            font-size: 11px;
             font-weight: bold;
             cursor: pointer;
         }
 
         .live-spin-time-box {
             background: rgba(44, 62, 80, 0.95);
-            padding: 8px 20px;
-            border-radius: 10px;
+            padding: 6px 15px;
+            border-radius: 8px;
             border: 2px solid #ffffff;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
             z-index: 20;
+            font-size: 13px;
         }
 
         .live-spin-time-box input {
-            width: 60px;
-            padding: 6px;
-            font-size: 16px;
-            border-radius: 6px;
+            width: 45px;
+            padding: 4px;
+            font-size: 13px;
+            border-radius: 4px;
             border: none;
             text-align: center;
             font-weight: bold;
@@ -757,9 +757,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 40px;
+            padding: 0 15px;
             width: 100%;
-            height: 65px;
+            height: 55px;
             box-sizing: border-box;
         }
 
@@ -767,8 +767,8 @@
             background: #3498db;
             color: white;
             border: none;
-            padding: 8px 20px;
-            font-size: 1rem;
+            padding: 6px 12px;
+            font-size: 0.85rem;
             font-weight: bold;
             border-radius: 5px;
             cursor: pointer;
@@ -784,6 +784,18 @@
             cursor: not-allowed;
         }
 
+        .btn-console {
+            padding: 8px 15px;
+            font-size: 13px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            background: #e74c3c;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
         .spin-result-popup {
             display: none;
             position: fixed;
@@ -792,29 +804,29 @@
             transform: translate(-50%, -50%);
             background: #ffffff;
             color: #2c3e50;
-            padding: 30px 60px;
-            border-radius: 15px;
+            padding: 20px 40px;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
             z-index: 3000;
-            border: 4px solid #f1c40f;
-            min-width: 280px;
+            border: 3px solid #f1c40f;
+            min-width: 240px;
         }
 
         .spin-result-popup div {
-            font-size: 42px;
+            font-size: 32px;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 8px;
             color: #e67e22;
         }
 
         .btn-close-spin-popup {
-            margin-top: 20px;
+            margin-top: 15px;
             background: #2c3e50;
             color: white;
-            padding: 10px 25px;
+            padding: 8px 20px;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 5px;
             border: none;
             cursor: pointer;
         }
@@ -830,35 +842,23 @@
             z-index: 1500;
         }
 
-        .btn-console {
-            padding: 12px 25px;
-            font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            border: none;
-            background: #e74c3c;
-            color: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
         .live-team-config-panel {
             display: none;
             background: #ffffff;
             color: #2c3e50;
-            padding: 15px 25px;
+            padding: 10px 15px;
             border-radius: 8px;
             width: 95%;
-            max-width: 600px;
+            max-width: 500px;
             margin: 5px auto;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
             box-sizing: border-box;
             z-index: 500;
         }
 
         .config-row {
             display: flex;
-            gap: 20px;
+            gap: 10px;
             align-items: center;
             justify-content: space-between;
         }
@@ -866,16 +866,16 @@
         .input-box-meta {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 3px;
             flex: 1;
         }
 
         .input-box-meta input {
-            padding: 8px 12px;
-            border-radius: 6px;
+            padding: 6px 10px;
+            border-radius: 5px;
             border: 1px solid #cbd5e1;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
             color: #2c3e50;
         }
 
@@ -883,10 +883,103 @@
             background: #2ecc71;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 8px 15px;
+            border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* 🛠 ⚡ MOBILE SCREEN OPTIMIZATION MEDIA QUERIES (ဖုန်းစခရင်အလျားလိုက်/အဒေါင်လိုက်အကုန်ရစေရန်) */
+        @media (max-width: 768px) {
+            .main-content-layout {
+                grid-template-columns: 80px 1fr 80px;
+            }
+
+            .control-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 1.4rem;
+            }
+
+            .team-score-card {
+                width: 140px;
+                font-size: 0.9rem;
+                padding: 6px 10px;
+            }
+
+            .score-num {
+                font-size: 0.9rem;
+                padding: 1px 8px;
+            }
+
+            .round-info {
+                font-size: 0.85rem;
+                padding: 3px 10px;
+            }
+
+            .card-cover {
+                font-size: 1.5rem;
+            }
+
+            .wheel-wrapper {
+                width: 260px;
+                height: 260px;
+            }
+
+            .wheel-pointer-right {
+                top: 130px;
+                right: -15px;
+                border-right-width: 32px;
+                border-top-width: 14px;
+                border-bottom-width: 14px;
+            }
+
+            .center-hub {
+                top: 130px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .spin-trigger-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 9px;
+            }
+
+            .ferris-iron-leg-left,
+            .ferris-iron-leg-right {
+                height: 160px;
+                bottom: -15px;
+            }
+
+            .ferris-iron-leg-left {
+                left: 80px;
+            }
+
+            .ferris-iron-leg-right {
+                right: 80px;
+            }
+
+            .leg-foot-left {
+                left: 68px;
+            }
+
+            .leg-foot-right {
+                right: 68px;
+            }
+
+            .card-container {
+                height: 60px;
+            }
+
+            .card-front {
+                font-size: 16px;
+            }
+
+            .card-back {
+                font-size: 9px;
+            }
         }
     </style>
 </head>
@@ -907,7 +1000,7 @@
             <div class="game-carousel" id="gameLibraryContainer">
                 <div class="insert-disc-card" onclick="document.getElementById('romUploader').click()">
                     <div class="disc-icon">💿</div>
-                    <div style="font-weight: bold; font-size: 14px;">Insert Game ROM</div>
+                    <div style="font-weight: bold; font-size: 12px;">Insert Game ROM</div>
                     <input type="file" id="romUploader" style="display:none;" accept=".txt"
                         onchange="loadGameRomConsole(event)">
                 </div>
@@ -943,10 +1036,10 @@
 
             <div class="live-team-config-panel" id="liveTeamConfig">
                 <div class="config-row">
-                    <div class="input-box-meta"><label style="font-weight:bold; font-size:11px;">Team A
-                            Name:</label><input type="text" id="team1Input" value="Straw Hats"></div>
-                    <div class="input-box-meta"><label style="font-weight:bold; font-size:11px;">Team B
-                            Name:</label><input type="text" id="team2Input" value="Beast Pirates"></div>
+                    <div class="input-box-meta"><label style="font-weight:bold; font-size:10px;">Team A:</label><input
+                            type="text" id="team1Input" value="Straw Hats"></div>
+                    <div class="input-box-meta"><label style="font-weight:bold; font-size:10px;">Team B:</label><input
+                            type="text" id="team2Input" value="Beast Pirates"></div>
                     <button class="btn-apply-teams" onclick="applyTeamConfigurationData()">Apply ⚔</button>
                 </div>
             </div>
@@ -954,7 +1047,7 @@
             <div class="main-content-layout" id="behindCardEngineView">
                 <div class="score-control">
                     <button class="control-btn btn-correct" onclick="handleScore(true)">✅</button>
-                    <span>Correct<br>(+1 Point)</span>
+                    <span>Correct</span>
                     <button class="btn-minus" onclick="modifyScoreManual(-1)">-1</button>
                 </div>
 
@@ -1002,7 +1095,7 @@
 
                 <div class="score-control">
                     <button class="control-btn btn-wrong" onclick="handleScore(false)">❌</button>
-                    <span>Wrong<br>(0 Points)</span>
+                    <span>Wrong</span>
                     <button class="btn-minus" onclick="modifyScoreManual(-1)">-1</button>
                 </div>
             </div>
@@ -1010,15 +1103,15 @@
             <div class="matchup-grid-field" id="matchUpEngineView"></div>
 
             <div class="spin-container" id="spinWheelEngineView">
-                <div class="live-spin-time-box"><span>⏱ Spin Duration:</span><input type="number" id="liveSecondsInput"
-                        value="5" min="2" max="60"><span>Seconds</span></div>
+                <div class="live-spin-time-box"><span>⏱ Spin:</span><input type="number" id="liveSecondsInput" value="5"
+                        min="2" max="60"><span>Secs</span></div>
                 <div class="ferris-wheel-frame">
                     <div class="ferris-iron-leg-left"></div>
                     <div class="ferris-iron-leg-right"></div>
                     <div class="leg-foot-left"></div>
                     <div class="leg-foot-right"></div>
                     <div class="wheel-wrapper">
-                        <canvas id="wheelCanvas" width="500" height="500"></canvas>
+                        <canvas id="wheelCanvas" width="330" height="330"></canvas>
                         <div class="wheel-pointer-right" id="wheelPointer"></div>
                     </div>
                     <div class="center-hub"><button class="spin-trigger-btn"
@@ -1027,13 +1120,13 @@
             </div>
 
             <div class="bottom-bar" id="universalControlNavbar">
-                <button class="nav-btn" id="prevBtn" onclick="navigateSlide(-1)">⏮ Previous</button>
+                <button class="nav-btn" id="prevBtn" onclick="navigateSlide(-1)">⏮ Prev</button>
                 <button class="nav-btn" style="background-color: #e67e22;" id="resetGridBtn"
-                    onclick="resetCurrentGrid()">🔄 Reset Grid</button>
+                    onclick="resetCurrentGrid()">🔄 Reset</button>
                 <button class="nav-btn" style="background-color: #9b59b6;" id="revealImageBtn"
-                    onclick="revealEntireImage()">👁️ Reveal Picture</button>
+                    onclick="revealEntireImage()">👁️ Reveal</button>
                 <button class="nav-btn" id="nextBtn" onclick="navigateSlide(1)">Next ⏭</button>
-                <button class="btn-console" id="exitConsoleBtn" onclick="powerOffCurrentGame()">🎮 Close Game</button>
+                <button class="btn-console" id="exitConsoleBtn" onclick="powerOffCurrentGame()">🎮 Close</button>
             </div>
         </div>
     </div>
@@ -1119,12 +1212,12 @@
                 document.getElementById("arenaStyleFrame").className = "game-arena match-bg";
                 document.getElementById("matchUpEngineView").style.display = "grid";
                 switchLiveMode('solo');
+                runMatchUpEngineView();
             } else if (currentRomObject.gameType === 'spin_wheel') {
                 document.getElementById("arenaStyleFrame").className = "game-arena spin-bg";
                 document.getElementById("spinWheelEngineView").style.display = "flex";
                 document.getElementById("scoreboardHeader").style.display = "none";
 
-                // 🛠 Spin Wheel တွင် အောက်ခြေ Close Game ခလုတ်တန်းတစ်ခုလုံး ပေါ်စေရန် ပြင်ဆင်ခြင်း
                 document.getElementById("universalControlNavbar").style.display = "flex";
                 document.getElementById("prevBtn").style.display = "none";
                 document.getElementById("nextBtn").style.display = "none";
@@ -1159,7 +1252,7 @@
             document.getElementById("liveTabTeam").classList.toggle("active", mode === 'team');
             if (mode === 'solo') {
                 document.getElementById("liveTeamConfig").style.display = "none";
-                document.getElementById("displayName1").innerText = "Player Score";
+                document.getElementById("displayName1").innerText = "Score";
                 document.getElementById("scoreCard2").style.display = "none";
                 activeTurn = 1; updateConsoleTurnUI();
             } else {
@@ -1186,7 +1279,7 @@
         }
 
         function updateConsoleTurnUI() {
-            document.getElementById("scoreCard1").classList.toggle("active-turn", activeTurn === 1);
+            if (document.getElementById("scoreCard1")) document.getElementById("scoreCard1").classList.toggle("active-turn", activeTurn === 1);
             if (document.getElementById("scoreCard2")) {
                 document.getElementById("scoreCard2").classList.toggle("active-turn", activeTurn === 2);
             }
@@ -1202,10 +1295,9 @@
             }
         }
 
-        /* 🛠 အမှတ်မှားနှိပ်မိပါက လက်တန်းပြန်နုတ်နိုင်မည့် Logic အသစ် */
         function modifyScoreManual(amount) {
             scores[activeTurn] += amount;
-            if (scores[activeTurn] < 0) scores[activeTurn] = 0; // အမှတ်ကို ဝက်အောက် အနုတ်မဖြစ်စေရန် ညှိခြင်း
+            if (scores[activeTurn] < 0) scores[activeTurn] = 0;
             document.getElementById(`scoreNum${activeTurn}`).innerText = scores[activeTurn];
             SoundFX.playFlip();
         }
@@ -1269,19 +1361,19 @@
 
         /* ---------------- ENGINE 2 LOGICS (SPIN WHEEL) ---------------- */
         function drawConsoleWheelGraphic(currentRotationRad) {
-            const canvas = document.getElementById("wheelCanvas"); const ctx = canvas.getContext("2d"); ctx.clearRect(0, 0, 500, 500);
+            const canvas = document.getElementById("wheelCanvas"); const ctx = canvas.getContext("2d"); ctx.clearRect(0, 0, 330, 330);
             const numSegs = wheelSegments.length; const arcSize = (2 * Math.PI) / numSegs;
-            ctx.save(); ctx.translate(250, 250); ctx.rotate(currentRotationRad);
+            ctx.save(); ctx.translate(165, 165); ctx.rotate(currentRotationRad);
             for (let i = 0; i < numSegs; i++) {
-                ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, 245, i * arcSize, (i + 1) * arcSize);
+                ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, 160, i * arcSize, (i + 1) * arcSize);
                 let colorIdx = i; if (numSegs % 2 !== 0 && i === numSegs - 1) { colorIdx = 4; }
-                ctx.fillStyle = segmentColors[colorIdx % segmentColors.length]; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = "#ffffff"; ctx.stroke();
+                ctx.fillStyle = segmentColors[colorIdx % segmentColors.length]; ctx.fill(); ctx.lineWidth = 1; ctx.strokeStyle = "#ffffff"; ctx.stroke();
                 ctx.save(); ctx.rotate((i + 0.5) * arcSize); ctx.fillStyle = "white";
-                let text = wheelSegments[i]; let fontSize = 16; if (text.length > 12) fontSize = 13; if (text.length > 20) fontSize = 11;
-                ctx.font = `bold ${fontSize}px sans-serif`; ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(text, 225, 0); ctx.restore();
+                let text = wheelSegments[i]; let fontSize = 12; if (text.length > 12) fontSize = 10; if (text.length > 20) fontSize = 8;
+                ctx.font = `bold ${fontSize}px sans-serif`; ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(text, 145, 0); ctx.restore();
             }
             ctx.restore();
-            const grad = ctx.createRadialGradient(250, 250, 20, 250, 250, 245); grad.addColorStop(0, 'rgba(255,255,255,0.05)'); grad.addColorStop(1, 'rgba(0,0,0,0.3)'); ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(250, 250, 245, 0, Math.PI * 2); ctx.fill();
+            const grad = ctx.createRadialGradient(165, 165, 15, 165, 165, 160); grad.addColorStop(0, 'rgba(255,255,255,0.05)'); grad.addColorStop(1, 'rgba(0,0,0,0.3)'); ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(165, 165, 160, 0, Math.PI * 2); ctx.fill();
             let normalizedAngle = (2 * Math.PI - (currentRotationRad % (2 * Math.PI))) % (2 * Math.PI);
             let targetIdx = Math.floor(normalizedAngle / arcSize); if (targetIdx < 0 || targetIdx >= numSegs) targetIdx = 0;
             let finalColorIdx = targetIdx; if (numSegs % 2 !== 0 && targetIdx === numSegs - 1) { finalColorIdx = 4; }
@@ -1304,7 +1396,7 @@
                 let liveActiveWinnerIdx = drawConsoleWheelGraphic(currentRad);
                 if (liveActiveWinnerIdx !== lastIdx) {
                     try {
-                        const osc = SoundFX.ctx.createOscillator(); const gain = SoundFX.ctx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(550, SoundFX.ctx.currentTime); gain.gain.setValueAtTime(0.04, SoundFX.ctx.currentTime); gain.gain.linearRampToValueAtTime(0.001, SoundFX.ctx.currentTime + 0.02); osc.connect(gain); gain.connect(this.ctx.destination); osc.start(); osc.stop(this.ctx.currentTime + 0.02);
+                        const osc = SoundFX.ctx.createOscillator(); const gain = SoundFX.ctx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(550, SoundFX.ctx.currentTime); gain.gain.setValueAtTime(0.04, SoundFX.ctx.currentTime); gain.gain.linearRampToValueAtTime(0.001, SoundFX.ctx.currentTime + 0.02); osc.connect(gain); gain.connect(SoundFX.ctx.destination); osc.start(); osc.stop(SoundFX.ctx.currentTime + 0.02);
                     } catch (e) { } lastIdx = liveActiveWinnerIdx;
                 }
                 if (elapsed < totalDurationMs) { requestAnimationFrame(stepAnimateWheelTime); } else { isSpinning = false; currentRotationAngle = currentRad; SoundFX.playWin(); document.getElementById("spinResultValue").innerText = wheelSegments[liveActiveWinnerIdx]; document.getElementById("mask").style.display = "block"; document.getElementById("spinResultBox").style.display = "block"; }

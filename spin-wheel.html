@@ -3,442 +3,184 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Minn Spin Wheel - Save Settings Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Spin Wheel - ROM Maker</title>
     <style>
-        html,
         body {
             margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            font-family: 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at center, #1e3c72 0%, #2a5298 100%);
+            padding: 15px;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #11335c, #061933);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            user-select: none;
-        }
-
-        .studio-container {
-            width: 95%;
-            height: 90vh;
-            display: flex;
-            gap: 30px;
-            background: rgba(255, 255, 255, 0.06);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 100vh;
             box-sizing: border-box;
         }
 
-        .wheel-arena {
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .ferris-wheel-frame {
-            position: relative;
-            width: 540px;
-            height: 620px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .wheel-wrapper {
-            position: absolute;
-            top: 10px;
-            width: 440px;
-            height: 440px;
-            border-radius: 50%;
-            border: 10px solid #ffffff;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 4px 8px rgba(255, 255, 255, 0.6), inset 0 -4px 8px rgba(0, 0, 0, 0.4);
-            background: #ffffff;
-            z-index: 10;
-        }
-
-        #wheelCanvas {
+        .studio-box {
             width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            transition: transform 0s cubic-bezier(0.15, 0.85, 0.35, 1);
-            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
-        }
-
-        .ferris-iron-leg-left {
-            position: absolute;
-            bottom: 10px;
-            left: 130px;
-            width: 16px;
-            height: 390px;
-            background: linear-gradient(to right, #bdc3c7 0%, #ffffff 30%, #95a5a6 70%, #7f8c8d 100%);
-            transform: rotate(20deg);
-            transform-origin: bottom center;
-            z-index: 5;
-            border-radius: 4px;
-            border: 1px solid #7f8c8d;
-            box-shadow: -6px 5px 12px rgba(0, 0, 0, 0.4);
-        }
-
-        .ferris-iron-leg-right {
-            position: absolute;
-            bottom: 10px;
-            right: 130px;
-            width: 16px;
-            height: 390px;
-            background: linear-gradient(to right, #bdc3c7 0%, #ffffff 30%, #95a5a6 70%, #7f8c8d 100%);
-            transform: rotate(-20deg);
-            transform-origin: bottom center;
-            z-index: 5;
-            border-radius: 4px;
-            border: 1px solid #7f8c8d;
-            box-shadow: 8px 5px 12px rgba(0, 0, 0, 0.4);
-        }
-
-        .leg-foot-left {
-            position: absolute;
-            bottom: 0;
-            left: 105px;
-            width: 35px;
-            height: 12px;
-            background: linear-gradient(to bottom, #bdc3c7, #7f8c8d);
-            border-radius: 3px;
-            z-index: 6;
-            border: 1px solid #5d6d7e;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-        }
-
-        .leg-foot-right {
-            position: absolute;
-            bottom: 0;
-            right: 105px;
-            width: 35px;
-            height: 12px;
-            background: linear-gradient(to bottom, #bdc3c7, #7f8c8d);
-            border-radius: 3px;
-            z-index: 6;
-            border: 1px solid #5d6d7e;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-        }
-
-        .wheel-pointer-right {
-            position: absolute;
-            top: 230px;
-            right: 25px;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-top: 22px solid transparent;
-            border-bottom: 22px solid transparent;
-            border-right: 55px solid #e74c3c;
-            z-index: 30;
-            filter: drop-shadow(-4px 4px 6px rgba(0, 0, 0, 0.5));
-        }
-
-        .center-hub {
-            position: absolute;
-            top: 230px;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 76px;
-            height: 76px;
-            background: radial-gradient(circle, #ffffff 30%, #cbd5e1 70%, #7f8c8d 100%);
-            border: 4px solid #95a5a6;
-            border-radius: 50%;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-            z-index: 40;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .spin-trigger-btn {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #f39c12 0%, #e67e22 50%, #d35400 100%);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .dashboard-panel {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.35);
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.6);
             padding: 25px;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-sizing: border-box;
         }
 
-        .panel-top h2 {
+        h2 {
             margin-top: 0;
-            font-size: 24px;
+            margin-bottom: 15px;
             color: #f1c40f;
             text-align: center;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
         }
 
-        .time-setting-box {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 10px 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .time-setting-box span {
+        label {
             font-weight: bold;
-            font-size: 14px;
+            display: block;
+            margin-top: 15px;
             color: #cbd5e1;
+            font-size: 13px;
+            text-transform: uppercase;
         }
 
-        .time-setting-box input {
-            width: 70px;
-            padding: 6px;
-            font-size: 15px;
-            border-radius: 6px;
-            border: 1px solid #cbd5e1;
-            text-align: center;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .input-group-bulk {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .input-group-bulk textarea {
+        input[type="text"],
+        input[type="number"],
+        textarea {
             width: 100%;
-            height: 90px;
             padding: 12px;
-            font-size: 15px;
+            margin-top: 6px;
+            box-sizing: border-box;
             border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            font-weight: bold;
-            box-sizing: border-box;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        textarea {
+            height: 140px;
             resize: none;
         }
 
-        .btn {
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            border: none;
-            transition: 0.2s;
-        }
-
-        .btn-add {
-            background-color: #2ecc71;
-            color: white;
-            width: 100%;
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #f1c40f;
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .btn-export {
-            background-color: #e67e22;
-            color: white;
             width: 100%;
-            font-size: 18px;
-            padding: 15px;
-        }
-
-        .items-list-box {
-            flex: 1;
-            overflow-y: auto;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .list-item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            border-left: 4px solid #3498db;
-        }
-
-        .btn-delete-item {
-            background: transparent;
-            border: none;
-            color: #e74c3c;
+            padding: 14px;
             font-size: 16px;
-            cursor: pointer;
-        }
-
-        .result-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #ffffff;
-            color: #2c3e50;
-            padding: 30px 60px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 15px 5px rgba(0, 0, 0, 0.5);
-            z-index: 100;
-            border: 4px solid #f1c40f;
-            min-width: 250px;
-        }
-
-        .result-popup div {
-            font-size: 42px;
             font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .btn-close-popup {
-            margin-top: 20px;
-            background: #2c3e50;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 6px;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
+            margin-top: 25px;
+            background: #e67e22;
+            color: white;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .overlay-mask {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 90;
+        .btn-export:active {
+            transform: scale(0.98);
+        }
+
+        .info-card {
+            background: rgba(52, 152, 219, 0.25);
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            font-size: 13px;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        /* 🛠 Mobile Optimizations */
+        @media (max-width: 480px) {
+            .studio-box {
+                padding: 18px;
+                border-radius: 12px;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            textarea,
+            .btn-export {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            textarea {
+                height: 120px;
+            }
+
+            .info-card {
+                font-size: 12px;
+                padding: 10px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="studio-container">
-        <div class="wheel-arena">
-            <div class="ferris-wheel-frame">
-                <div class="ferris-iron-leg-left"></div>
-                <div class="ferris-iron-leg-right"></div>
-                <div class="leg-foot-left"></div>
-                <div class="leg-foot-right"></div>
-                <div class="wheel-wrapper"><canvas id="wheelCanvas"></canvas></div>
-                <div class="wheel-pointer-right"></div>
-                <div class="center-hub"><button class="spin-trigger-btn" onclick="triggerWheelSpin()">SPIN</button>
-                </div>
-            </div>
+    <div class="studio-box">
+        <h2>🎡 Spin Wheel ROM Maker</h2>
+        <div class="info-card">
+            💡 <b>Instructions:</b> Enter your student names or words below (one item per line). This factory will
+            automatically generate a game file with the <code>spin_wheel</code> engine identifier.
         </div>
 
-        <div class="dashboard-panel">
-            <div class="panel-top" style="display: flex; flex-direction: column; height: 100%;">
-                <h2>Teacher Minn Spin Wheel</h2>
-                <div class="time-setting-box">
-                    <span>⏱ Set Spin Duration (Seconds):</span>
-                    <input type="number" id="spinTimeInput" value="15" min="2" max="60">
-                </div>
-                <div class="input-group-bulk">
-                    <textarea id="bulkItemInput"
-                        placeholder="Paste list or type items here...&#10;(One item per line)"></textarea>
-                    <button class="btn btn-add" onclick="addBulkItemsToWheel()">➕ Add Items</button>
-                </div>
-                <div class="items-list-box" id="listContainer"></div>
-            </div>
-            <button class="btn btn-export" onclick="exportSpinWheelROM()">📥 Export Spin Wheel Data (.txt)</button>
-        </div>
-    </div>
+        <label>📌 Enter Game Title:</label>
+        <input type="text" id="gameTitle" value="Lucky Student Spin">
 
-    <div class="overlay-mask" id="mask"></div>
-    <div class="result-popup" id="resultPopup">
-        <h3>Selected Item</h3>
-        <div id="resultValue">-</div>
-        <button class="btn btn-close-popup" onclick="closeResultPopup()">OK</button>
+        <label>⏱ Default Spin Duration (Seconds):</label>
+        <input type="number" id="spinDuration" value="5" min="2" max="60">
+
+        <label>📝 Enter Student Names / Words (One per line):</label>
+        <textarea id="wordItems" placeholder="Somchai&#10;Somsri&#10;John Doe"></textarea>
+
+        <button class="btn-export" onclick="exportSpinWheelROM()">📥 Export ROM File (.txt)</button>
     </div>
 
     <script>
-        let wheelSegments = ["1", "2", "3", "4", "5", "6", "7", "8"];
-        let currentRotationAngle = 0; let isSpinning = false; let audioCtx = null;
-        function initAudio() { if (!audioCtx) { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } if (audioCtx.state === 'suspended') { audioCtx.resume(); } }
-        window.onload = function () { drawWheelGraphic(); updateItemsListView(); };
-
-        function drawWheelGraphic() {
-            const canvas = document.getElementById("wheelCanvas"); const ctx = canvas.getContext("2d"); canvas.width = 600; canvas.height = 600;
-            const numSegs = wheelSegments.length; if (numSegs === 0) return;
-            const arcSize = (2 * Math.PI) / numSegs;
-            const segmentColors = ["#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#f1c40f", "#e67e22", "#e74c3c", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad"];
-            ctx.clearRect(0, 0, 600, 600);
-            for (let i = 0; i < numSegs; i++) {
-                ctx.beginPath(); ctx.moveTo(300, 300); ctx.arc(300, 300, 295, i * arcSize, (i + 1) * arcSize); ctx.fillStyle = segmentColors[i % segmentColors.length]; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = "#ffffff"; ctx.stroke();
-                ctx.save(); ctx.translate(300, 300); ctx.rotate((i + 0.5) * arcSize); ctx.fillStyle = "white"; ctx.font = "bold 22px Segoe UI"; ctx.textAlign = "right";
-                let text = wheelSegments[i]; if (text.length > 15) text = text.substring(0, 13) + "..";
-                ctx.fillText(text, 260, 8); ctx.restore();
-            }
-            const gradient = ctx.createRadialGradient(240, 240, 40, 300, 300, 295); gradient.addColorStop(0, 'rgba(255, 255, 255, 0.12)'); gradient.addColorStop(0.6, 'rgba(0, 0, 0, 0)'); gradient.addColorStop(1, 'rgba(0, 0, 0, 0.3)'); ctx.fillStyle = gradient; ctx.beginPath(); ctx.arc(300, 300, 295, 0, 2 * Math.PI); ctx.fill();
-        }
-
-        function addBulkItemsToWheel() { const area = document.getElementById("bulkItemInput"); const text = area.value.trim(); if (!text) return; const lines = text.split('\n'); lines.forEach(line => { const item = line.trim(); if (item !== "") wheelSegments.push(item); }); area.value = ""; drawWheelGraphic(); updateItemsListView(); }
-        function deleteItemFromWheel(index) { wheelSegments.splice(index, 1); drawWheelGraphic(); updateItemsListView(); }
-        function updateItemsListView() { const container = document.getElementById("listContainer"); container.innerHTML = ""; wheelSegments.forEach((item, index) => { const row = document.createElement("div"); row.classList.add("list-item-row"); row.innerHTML = `<span>${item}</span><button class="btn-delete-item" onclick="deleteItemFromWheel(${index})">🗑</button>`; container.appendChild(row); }); }
-
-        function triggerWheelSpin() {
-            if (isSpinning || wheelSegments.length === 0) return; isSpinning = true; initAudio();
-            let spinSeconds = parseInt(document.getElementById("spinTimeInput").value) || 15;
-            const canvas = document.getElementById("wheelCanvas"); canvas.style.transition = `transform ${spinSeconds}s cubic-bezier(0.1, 0.85, 0.25, 1)`;
-            const numSegs = wheelSegments.length; const totalDegreesToRotate = 360 * (spinSeconds * 1.2) + Math.floor(Math.random() * 360); currentRotationAngle += totalDegreesToRotate; canvas.style.transform = `rotate(${currentRotationAngle}deg)`;
-            let startTimestamp = null; let lastSegmentIdx = -1;
-            function playDynamicTickSound(timestamp) {
-                if (!startTimestamp) startTimestamp = timestamp; let elapsed = (timestamp - startTimestamp) / 1000; if (elapsed >= spinSeconds) return;
-                let progress = elapsed / spinSeconds; let easeOutFactor = 1 - Math.pow(1 - progress, 3); let currentPosDegrees = (currentRotationAngle - totalDegreesToRotate) + (totalDegreesToRotate * easeOutFactor); let currentSegmentIdx = Math.floor(((360 - (currentPosDegrees % 360)) % 360) / (360 / numSegs));
-                if (currentSegmentIdx !== lastSegmentIdx) { playTickAudioNode(); lastSegmentIdx = currentSegmentIdx; }
-                if (isSpinning) requestAnimationFrame(playDynamicTickSound);
-            }
-            requestAnimationFrame(playDynamicTickSound);
-            setTimeout(() => { isSpinning = false; let netDegrees = currentRotationAngle % 360; let winningIndex = Math.floor(((360 - netDegrees) % 360) / (360 / numSegs)); if (winningIndex < 0) winningIndex = 0; showResultValuePopup(wheelSegments[winningIndex]); }, spinSeconds * 1000);
-        }
-        function playTickAudioNode() { try { const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(550, audioCtx.currentTime); gain.gain.setValueAtTime(0.04, audioCtx.currentTime); gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.03); osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.03); } catch (e) { } }
-        function showResultValuePopup(value) { try { const t = audioCtx.currentTime; const tone = (f, s, d) => { const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); o.type = 'square'; o.frequency.setValueAtTime(f, s); g.gain.setValueAtTime(0.05, s); g.gain.linearRampToValueAtTime(0.001, s + d); o.connect(g); g.connect(audioCtx.destination); o.start(s); o.stop(s + d); }; tone(523.25, t, 0.1); tone(659.25, t + 0.1, 0.1); tone(783.99, t + 0.2, 0.3); } catch (e) { } document.getElementById("resultValue").innerText = value; document.getElementById("mask").style.display = "block"; document.getElementById("resultPopup").style.display = "block"; }
-        function closeResultPopup() { document.getElementById("mask").style.display = "none"; document.getElementById("resultPopup").style.display = "none"; }
-
-        // --- 📥 ပြင်ဆင်လိုက်သည့်နေရာ: စက္ကန့်ဒေတာပါ ပေါင်းထည့်ထုတ်ပေးမည့် Logic ---
         function exportSpinWheelROM() {
-            if (wheelSegments.length === 0) return;
-            const name = prompt("Enter Game Name:", "My-Wheel-Game"); if (!name) return;
-            let spinSeconds = parseInt(document.getElementById("spinTimeInput").value) || 15;
-            const romFormat = {
-                title: name,
+            const title = document.getElementById("gameTitle").value.trim() || "Spin-Wheel";
+            const duration = parseInt(document.getElementById("spinDuration").value) || 5;
+            const wordsText = document.getElementById("wordItems").value.trim();
+            if (!wordsText) { alert("Please enter at least one name or word!"); return; }
+            let wordsArray = [];
+            wordsText.split('\n').forEach(w => { if (w.trim() !== "") { wordsArray.push(w.trim()); } });
+            if (wordsArray.length === 0) { alert("Please enter valid names or words!"); return; }
+
+            const romObject = {
+                title: title,
                 gameType: "spin_wheel",
-                duration: spinSeconds, // ဖိုင်ထဲမှာ စက္ကန့်ကို တစ်ပါတည်း သိမ်းလိုက်ခြင်း
-                pairs: wheelSegments.map(item => ({ a: item, b: "" }))
+                duration: duration,
+                pairs: wordsArray.map(w => ({ a: w, b: "" }))
             };
-            const blob = new Blob([JSON.stringify(romFormat)], { type: "text/plain" });
-            const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `${name}.txt`; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+
+            const dataBlob = new Blob([JSON.stringify(romObject)], { type: "text/plain" });
+            const downloader = document.createElement("a");
+            downloader.href = URL.createObjectURL(dataBlob);
+            downloader.download = `${title}.txt`;
+            document.body.appendChild(downloader); downloader.click(); document.body.removeChild(downloader);
         }
     </script>
 </body>
