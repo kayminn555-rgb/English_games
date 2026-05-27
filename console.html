@@ -403,6 +403,7 @@
             margin-top: 2px;
         }
 
+        /* 🛠 ⚡ ပြုပြင်ပြောင်းလဲမှု အဓိကနေရာ - ကတ်ပြားများ စခရင်ထဲ ကွက်တိဝင်ဆံ့စေရန် Scroll စနစ် ထည့်သွင်းပေးခြင်း */
         .board-container {
             width: 100%;
             height: 100%;
@@ -411,7 +412,7 @@
             align-items: center;
             box-sizing: border-box;
             padding: 5px;
-            overflow: hidden;
+            overflow-y: auto;
         }
 
         /* Behind the Card Grid (4x3) Layout style */
@@ -446,24 +447,66 @@
             z-index: 1;
         }
 
-        /* Match up Grid Field (6 Columns style) */
+        .card-slot {
+            position: relative;
+            z-index: 2;
+            background: transparent;
+        }
+
+        .card-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            outline: 1px solid #2c3e50;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .card-cover:hover {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+
+        .card-slot.revealed .card-cover {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        /* 🛠 ⚡ MATCH UP FIELD OPTIMIZATION (၁ တန်း ၆ ကွက်စနစ်ကို လုံးဝ (၁၀၀%) စခရင်ထဲ ချုံ့ဝင်စေမည့် CSS) */
         .matchup-grid-field {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
+            gap: 8px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 950px;
+            max-height: 100%;
+            /* ကွင်းပြင် အမြင့်ထက် လျှံမထွက်စေရန် ထိန်းချုပ်ခြင်း */
             margin: auto;
             perspective: 1200px;
             justify-content: center;
             box-sizing: border-box;
         }
 
+        /* ကတ်ပြားများ စခရင်အလိုက် Auto ပိန်သွား၊ ပုသွားစေရန် Flex Size ချိန်ညှိခြင်း */
         .card-container {
             width: 100%;
             aspect-ratio: 1 / 1;
             perspective: 1200px;
             cursor: pointer;
+            max-height: 11vh;
+            /* ဖုန်းစခရင်အနိမ့်များတွင်ပါ ၂၄ ကတ်လုံး မျက်စိရှေ့ ကွက်တိပေါ်နေစေရန် အမြင့်ကို Max ကန့်သတ်ခြင်း */
         }
 
         .card-inner {
@@ -499,14 +542,14 @@
             background-color: #4a2711;
             background-image: linear-gradient(0deg, #3d1f0d 0%, #573018 100%);
             color: #f1c40f;
-            font-size: 22px;
+            font-size: 20px;
             border: 2px solid #2b1407;
         }
 
         .card-back {
             background: linear-gradient(135deg, #1abc9c, #2ecc71);
             color: white;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             transform: rotateY(180deg);
             word-break: break-word;
@@ -532,7 +575,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 38px;
+            font-size: 32px;
             font-weight: bold;
             opacity: 0;
             border-radius: 6px;
@@ -550,7 +593,7 @@
             align-items: flex-start;
             justify-content: flex-end;
             padding: 4px 6px;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .card-container.fall-down .card-inner {
@@ -569,7 +612,7 @@
             }
         }
 
-        /* 🛠 ⚡ ENGINE PACK 2: SPIN WHEEL EMBEDDED FIELD (ချားရဟတ်ကို ကြီးကြီးမားမား ချဲ့ပေးထားသော CSS) */
+        /* SPIN WHEEL STYLE PACK */
         .spin-container {
             display: none;
             flex-direction: column;
@@ -594,7 +637,6 @@
             justify-content: center;
         }
 
-        /* ရဟတ်ဝိုင်းကြီးတစ်ခုလုံးကို စခရင်အပြည့် အကြီးဆုံး ချဲ့ပေးလိုက်ခြင်း */
         .wheel-wrapper {
             position: absolute;
             top: 0;
@@ -656,7 +698,6 @@
             z-index: 6;
         }
 
-        /* Pointer မြှားကိုလည်း ရဟတ်အကြီးစားနဲ့ ကိုက်ညီအောင် နေရာချခြင်း */
         .wheel-pointer-right {
             position: absolute;
             top: 225px;
@@ -771,7 +812,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* 🛠 ⚡ POPUP BOX MODIFICATION (ခလုတ် ၂ ခုပါဝင်သော Winner Popup ပုံစံအသစ်) */
+        /* POPUP BOX MODIFICATION */
         .spin-result-popup {
             display: none;
             position: fixed;
@@ -924,18 +965,26 @@
             }
 
             .card-front {
-                font-size: 14px;
+                font-size: 12px;
             }
 
             .card-back {
-                font-size: 11px;
+                font-size: 10px;
             }
 
             .matchup-grid-field {
-                gap: 6px;
+                gap: 4px;
             }
 
-            /* ဖုန်းစခရင်အရွယ်အစားအတွက် ချားရဟတ်ကို အမြင့်ဆုံးညှိပေးခြင်း */
+            .card-container {
+                max-height: 8vh;
+            }
+
+            /* ဖုန်းတွင် ပို၍ကျုံ့ပေးခြင်း */
+            .feedback-overlay {
+                font-size: 18px;
+            }
+
             .wheel-wrapper {
                 width: 340px;
                 height: 340px;
@@ -994,7 +1043,9 @@
             <div class="game-carousel" id="gameLibraryContainer">
                 <div class="insert-disc-card" onclick="document.getElementById('romUploader').click()">
                     <div class="disc-icon">💿</div>
-                    <div style="font-weight: bold; font-size: 12px;">Insert Game ROM</div>
+                    <div style="font-weight: bold; font-size: 12px; color: #f1c40f;">LOAD GAME ROM</div>
+                    <p style="font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 4px;">Select your .txt game
+                        file</p>
                     <input type="file" id="romUploader" style="display:none;" accept=".txt"
                         onchange="loadGameRomConsole(event)">
                 </div>
@@ -1126,7 +1177,6 @@
     </div>
 
     <div class="overlay-mask" id="mask"></div>
-
     <div class="spin-result-popup" id="spinResultBox">
         <h3>Selected Winner</h3>
         <div id="spinResultValue">-</div>
@@ -1140,7 +1190,7 @@
         let installedGames = []; let activePairsData = []; let flippedCards = []; let matchesFound = 0; let totalMatches = 0;
         let currentRomObject = null; let gameMode = 'solo'; let activeTurn = 1; let scores = { 1: 0, 2: 0 };
         let wheelSegments = []; let currentRotationAngle = 0; let isSpinning = false; let currentIdx = 0; let isTransitioning = false;
-        let lastWinnerIndex = -1; // ကျလာတဲ့ နာမည်အညွှန်းကို မှတ်မည့် Variable
+        let lastWinnerIndex = -1;
 
         const segmentColors = ["#1abc9c", "#e67e22", "#3498db", "#2ecc71", "#9b59b6", "#f1c40f", "#34495e", "#e74c3c", "#16a085", "#27ae60", "#2980b9", "#8e44ad"];
         const hidingLayouts = [
@@ -1174,32 +1224,20 @@
                 try {
                     const rom = JSON.parse(evt.target.result);
                     if (!rom.gameType || !rom.pairs) throw new Error();
-                    installedGames.push(rom); renderGameLibraryCarousel();
-                    alert(`🎮 "${rom.title.toUpperCase()}" Installed!`);
+                    currentRomObject = rom; activePairsData = rom.pairs;
+                    e.target.value = "";
+                    bootSelectedGameEngine();
                 } catch (err) { alert("❌ Invalid Game File Format!"); }
             };
             reader.readAsText(file);
         }
 
-        function renderGameLibraryCarousel() {
-            const container = document.getElementById("gameLibraryContainer"); container.innerHTML = container.firstElementChild.outerHTML;
-            installedGames.forEach((game, index) => {
-                const card = document.createElement("div"); card.classList.add("ps4-game-card");
-                let coverImg = game.gameType === 'spin_wheel' ? GameCovers.spin_wheel : GameCovers.match_up;
-                card.style.backgroundImage = `url('${coverImg}')`;
-                card.innerHTML = `<div class="game-badge">Ready</div><div class="game-card-title">${game.title}</div><div class="game-card-type">Engine: ${game.gameType.replace(/_/g, ' ')}</div>`;
-                card.onclick = () => bootSelectedGameEngine(index); container.appendChild(card);
-            });
-            if (installedGames.length > 0) { document.getElementById("focusedGameTitle").innerText = installedGames[installedGames.length - 1].title; }
-        }
-
-        function bootSelectedGameEngine(index) {
-            currentRomObject = installedGames[index]; activePairsData = currentRomObject.pairs;
+        function bootSelectedGameEngine() {
+            if (!currentRomObject) return;
             document.getElementById("consoleHome").style.display = "none"; document.getElementById("runtimeArena").style.display = "block";
             scores = { 1: 0, 2: 0 }; activeTurn = 1; document.getElementById("scoreNum1").innerText = "0"; document.getElementById("scoreNum2").innerText = "0";
             document.getElementById("liveTeamConfig").style.display = "none"; currentIdx = 0; isTransitioning = false;
 
-            // View Safety Reset Block
             document.getElementById("universalCoreGamefieldLayout").style.display = "none";
             document.getElementById("matchUpEngineView").style.display = "none";
             document.getElementById("gridBoard").style.display = "none";
@@ -1313,11 +1351,17 @@
             SoundFX.playFlip();
         }
 
-        /* ---------------- ENGINE 3 CORE LOGICS (BEHIND THE CARD) ---------------- */
+        /* ---------------- BEHIND THE CARD LOGICS ---------------- */
         function loadBehindCardRound(idx) {
             document.getElementById('roundLabel').innerText = `Slide ${idx + 1} / ${activePairsData.length}`;
             const imgHolder = document.getElementById('secretImage');
-            imgHolder.style.backgroundImage = `url('${activePairsData[idx].a}')`;
+
+            let imgSource = activePairsData[idx].a.trim();
+            if (imgSource.includes(" ") && !imgSource.startsWith('"') && !imgSource.startsWith("'")) {
+                imgHolder.style.backgroundImage = 'url("' + imgSource + '")';
+            } else {
+                imgHolder.style.backgroundImage = 'url(' + imgSource + ')';
+            }
 
             const randomLayout = hidingLayouts[Math.floor(Math.random() * hidingLayouts.length)];
             imgHolder.style.top = randomLayout.top; imgHolder.style.left = randomLayout.left;
@@ -1347,13 +1391,20 @@
             }, 800);
         }
 
-        /* ---------------- ENGINE 1 LOGICS (MATCH UP) ---------------- */
+        /* ---------------- MATCH UP LOGICS ---------------- */
         function runMatchUpEngineView() {
             const board = document.getElementById("matchUpEngineView"); board.innerHTML = ""; flippedCards = []; matchesFound = 0; totalMatches = activePairsData.length;
             let cards = []; activePairsData.forEach((pair, idx) => { cards.push({ id: idx, text: pair.a }); cards.push({ id: idx, text: pair.b }); }); cards.sort(() => Math.random() - 0.5);
             cards.forEach((data, index) => {
                 const container = document.createElement("div"); container.classList.add("card-container"); container.dataset.id = data.id; const inner = document.createElement("div"); inner.classList.add("card-inner"); const front = document.createElement("div"); front.classList.add("card-face", "card-front"); front.innerText = index + 1; const back = document.createElement("div"); back.classList.add("card-face", "card-back");
-                let trimmedText = data.text.trim(); if (trimmedText.startsWith("http://") || trimmedText.startsWith("https://") || trimmedText.startsWith("data:image")) { back.innerHTML = `<img src="${trimmedText}">`; } else { back.innerText = data.text; }
+
+                let trimmedText = data.text.trim();
+                if (trimmedText.startsWith("http://") || trimmedText.startsWith("https://") || trimmedText.startsWith("data:image")) {
+                    back.innerHTML = '<img src="' + trimmedText + '">';
+                } else {
+                    back.innerText = data.text;
+                }
+
                 const cO = document.createElement("div"); cO.classList.add("feedback-overlay", "feedback-correct"); cO.innerText = "✓"; const wO = document.createElement("div"); wO.classList.add("feedback-overlay", "feedback-wrong"); wO.innerText = "✗"; back.appendChild(cO); back.appendChild(wO); inner.appendChild(front); inner.appendChild(back); container.appendChild(inner);
                 container.onclick = function () { if (container.classList.contains("is-flipped") || container.classList.contains("fall-down") || flippedCards.length === 2) return; SoundFX.playFlip(); container.classList.add("is-flipped"); flippedCards.push(container); if (flippedCards.length === 2) { setTimeout(checkMatchLogicConsole, 400); } }; board.appendChild(container);
             });
@@ -1370,7 +1421,7 @@
             }
         }
 
-        /* ---------------- ENGINE 2 LOGICS (SPIN WHEEL) ---------------- */
+        /* ---------------- SPIN WHEEL LOGICS ---------------- */
         function drawConsoleWheelGraphic(currentRotationRad) {
             const canvas = document.getElementById("wheelCanvas"); const ctx = canvas.getContext("2d"); ctx.clearRect(0, 0, 450, 450);
             const numSegs = wheelSegments.length; if (numSegs === 0) return 0;
@@ -1381,7 +1432,7 @@
                 let colorIdx = i; if (numSegs % 2 !== 0 && i === numSegs - 1) { colorIdx = 4; }
                 ctx.fillStyle = segmentColors[colorIdx % segmentColors.length]; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = "#ffffff"; ctx.stroke();
                 ctx.save(); ctx.rotate((i + 0.5) * arcSize); ctx.fillStyle = "white";
-                let text = wheelSegments[i]; let fontSize = 16; if (text.length > 12) fontSize = 13; if (text.length > 20) fontSize = 10;
+                let text = wheelSegments[i]; let fontSize = 16; if (text.length > 12) fontSize = 13; if (text.length > 20) fontSize = 8;
                 ctx.font = `bold ${fontSize}px sans-serif`; ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.fillText(text, 205, 0); ctx.restore();
             }
             ctx.restore();
@@ -1422,13 +1473,12 @@
             requestAnimationFrame(stepAnimateWheelTime);
         }
 
-        /* 🛠 ⚡ နာမည်အား ရဟတ်ဝိုင်းထဲမှ အပြီးအပိုင် ဖြုတ်ပစ်မည့် Logic အသစ် */
         function removeWinnerNamePermanently() {
             if (lastWinnerIndex > -1 && wheelSegments.length > 0) {
-                wheelSegments.splice(lastWinnerIndex, 1); // ရွေးချယ်ခံရသော နာမည်အား Array ထဲမှ ဖျက်ထုတ်ခြင်း
+                wheelSegments.splice(lastWinnerIndex, 1);
                 lastWinnerIndex = -1;
                 currentRotationAngle = 0;
-                drawConsoleWheelGraphic(0); // ရဟတ်အား နာမည်အသစ်များဖြင့် ပြန်လည်ရေးဆွဲခြင်း
+                drawConsoleWheelGraphic(0);
             }
             closeConsoleSpinPopup();
         }
