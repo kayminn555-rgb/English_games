@@ -30,15 +30,15 @@
 
         /* လှုပ်ရှားနေတဲ့ ကာတွန်းစတစ်ကာ Container */
         .gif-container img {
-            width: 160px;
-            height: 160px;
+            width: 140px;
+            height: 140px;
             object-fit: contain;
             margin-bottom: 20px;
         }
 
         h2 {
             color: #d63384;
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 30px;
             min-height: 70px;
             display: flex;
@@ -51,7 +51,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            min-height: 200px; /* Yes ခလုတ်ကြီးလာဖို့ နေရာချန်ထားတာပါ */
+            min-height: 180px; 
         }
 
         button {
@@ -61,22 +61,22 @@
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             position: absolute;
         }
 
         #yesBtn {
             background-color: #4caf50;
             color: white;
-            z-index: 10; /* No ထက် အပေါ်ရောက်နေစေဖို့ */
-            left: 20%;
+            z-index: 10; 
+            left: 15%;
         }
 
         #noBtn {
             background-color: #f44336;
             color: white;
             z-index: 5;
-            right: 20%;
+            right: 15%;
         }
 
         .success-message {
@@ -90,8 +90,8 @@
         /* Yes နှိပ်ပြီးမှ စာသားအပေါ်မှာ ပေါ်လာမယ့် စတစ်ကာ style */
         #successGif {
             display: none;
-            width: 160px;
-            height: 160px;
+            width: 150px;
+            height: 150px;
             object-fit: contain;
             margin: 0 auto 20px auto;
         }
@@ -111,7 +111,6 @@
             <button id="noBtn" onclick="sayNo()">No</button>
         </div>
 
-        <!-- ⭐️ စာသားရဲ့ အပေါ်မှာ စတစ်ကာ Link ထည့်ဖို့ နေရာ လုပ်ပေးထားပါတယ်ဗျာ -->
         <img id="successGif" src="" alt="Success Celebration Sticker">
 
         <div id="successBox" class="success-message">
@@ -128,7 +127,7 @@
         let paddingX = 25;
         let paddingY = 12;
 
-        // နောက်ဆုံးစာသားကို ဖြုတ်ပြီး ပြင်ဆင်ထားတဲ့ မေးခွန်းနဲ့ လှုပ်ရှားစတစ်ကာအတွဲများ
+        // မေးခွန်းတွဲများနှင့် စတစ်ကာများ
         const stages = [
             { q: "Can you forgive me? 🥺👉👈", gif: "https://media.tenor.com/ZKDKcI-tQ_YAAAAm/happy-taps.webp.gif" },
             { q: "Do you love me my love? 💖", gif: "https://media.tenor.com/GkVtcIF8IA8AAAAm/tkthao219-bubududu.webp.gif" }
@@ -137,45 +136,52 @@
         function sayNo() {
             clickCount++;
             
-            // Yes Button ကို အဆမတန် ကြီးထွားလာစေပြီး အလယ်တည့်တည့်ကို ရွှေ့ကာ No ခလုတ်ကို ကာပစ်မှာပါ
-            yesSize += 40; // ပိုမြန်မြန်ကြီးလာအောင် scale တိုးလိုက်ပါတယ်
-            paddingX += 35;
-            paddingY += 20;
-            
-            const yesBtn = document.getElementById('yesBtn');
-            yesBtn.style.fontSize = yesSize + 'px';
-            yesBtn.style.padding = paddingY + 'px ' + paddingX + 'px';
-            
-            // ကောင်မလေး No နှိပ်ရခက်အောင် Yes ခလုတ်ကို အလယ်ကို ပို့ပြီး ဝါးမြိုခိုင်းလိုက်တာပါ 😉
-            yesBtn.style.left = '50%';
-            yesBtn.style.transform = 'translate(-50%, -50%)';
-            yesBtn.style.top = '50%';
-
-            // မေးခွန်းပြောင်းလဲခြင်း
             if (clickCount <= stages.length) {
+                // မေးခွန်းတွေ မပြီးသေးခင်မှာ Yes ခလုတ်ကို နည်းနည်းစီပဲ ကြီးခိုင်းထားပြီး No ကို ဖုံးမသွားစေရပါဘူး
+                yesSize += 8; 
+                paddingX += 10;
+                paddingY += 4;
+                
+                const yesBtn = document.getElementById('yesBtn');
+                yesBtn.style.fontSize = yesSize + 'px';
+                yesBtn.style.padding = paddingY + 'px ' + paddingX + 'px';
+
+                // မေးခွန်းနဲ့ စတစ်ကာ ပြောင်းလဲခြင်း
                 const currentStage = stages[clickCount - 1];
                 document.getElementById('question').innerText = currentStage.q;
                 document.getElementById('gif').src = currentStage.gif;
-            }
+            } 
+            
+            // မေးခွန်းတွေအကုန်ပတ်ပြီးလို့ နောက်ဆုံးအဆင့် ရောက်သွားပြီဆိုမှ No ကို ကာပစ်မှာပါ
+            if (clickCount > stages.length) {
+                const yesBtn = document.getElementById('yesBtn');
+                
+                // Yes ခလုတ်ကို တစ်ချက်တည်းနဲ့ အဆမတန်ကြီးအောင် လုပ်ပြီး No ကို အုပ်ပစ်လိုက်တာပါ
+                yesBtn.style.fontSize = '60px';
+                yesBtn.style.padding = '40px 80px';
+                yesBtn.style.left = '50%';
+                yesBtn.style.top = '50%';
+                yesBtn.style.transform = 'translate(-50%, -50%)';
+                yesBtn.style.width = '100%';
+                yesBtn.style.height = '100%';
+                yesBtn.style.borderRadius = '20px';
 
-            // တတိယအကြိမ်မြောက် No ကို နှိပ်ဖို့ကြိုးစားရင် (သို့) ခလုတ် အရမ်းကြီးလာရင် No ခလုတ်ကို လုံးဝကွယ်ပစ်လိုက်ပါမယ်
-            if (clickCount >= 2 || yesSize > 90) {
                 document.getElementById('noBtn').style.opacity = '0';
-                document.getElementById('noBtn').style.pointerEvents = 'none'; // နှိပ်လို့မရအောင် ပိတ်ပစ်တာ
+                document.getElementById('noBtn').style.pointerEvents = 'none';
             }
         }
 
         function sayYes() {
-            // UI ပြောင်းလဲခြင်း
+            // UI ပြောင်းလဲခြင်း (မေးခွန်းဟောင်းတွေ ဖျောက်တာ)
             document.getElementById('question').style.display = 'none';
             document.getElementById('btnGroup').style.display = 'none';
-            document.getElementById('mainGifContainer').style.display = 'none'; // မေးခွန်းတုန်းက ပုံအဟောင်းကို ဖျောက်လိုက်တာပါ
+            document.getElementById('mainGifContainer').style.display = 'none'; 
 
-            // ⭐️ ဒီအောက်က နေရာမှာ အစ်ကို လိုချင်တဲ့ စတစ်ကာ Link ကို ထည့်ရမှာပါဗျာ (အခု လောလောဆယ် အောင်ပွဲခံ စတစ်ကာလေး ထည့်ပေးထားပါတယ်)
+            // 🛠️ Error ပြင်ဆင်ပြီးကြောင်း (style တစ်ခုပဲ သုံးထားပါတယ်)
             document.getElementById('successGif').src = "https://media.tenor.com/Zrr4L_Wd4JkAAAAm/bubu-rub-bubu-love-dudu.webp.gif"; 
-            document.getElementById('successGif').style.display = 'block'; // စတစ်ကာပုံကို ဖော်ပြခိုင်းတာ
+            document.getElementById('successGif').style.display = 'block'; 
             
-            document.getElementById('successBox').style.display = 'block'; // စာသားကို ဖော်ပြခိုင်းတာ
+            document.getElementById('successBox').style.display = 'block'; 
 
             // Telegram Bot ဆီ Alert ပို့ခြင်း
             const message = `🎉 သတင်းကောင်း! ကောင်မလေး စိတ်ဆိုးပြေသွားပါပြီ။ 🥰\nသူ Yes နှိပ်လိုက်ပါပြီဗျာ!`;
