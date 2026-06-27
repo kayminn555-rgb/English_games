@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love 💖</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffe6e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* လှုပ်ရှားနေတဲ့ ကာတွန်းစတစ်ကာ Container */
+        .gif-container img {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #d63384;
+            font-size: 24px;
+            margin-bottom: 30px;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 200px; /* Yes ခလုတ်ကြီးလာဖို့ နေရာချန်ထားတာပါ */
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: absolute;
+        }
+
+        #yesBtn {
+            background-color: #4caf50;
+            color: white;
+            z-index: 10; /* No ထက် အပေါ်ရောက်နေစေဖို့ */
+            left: 20%;
+        }
+
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+            z-index: 5;
+            right: 20%;
+        }
+
+        .success-message {
+            display: none;
+            color: #d63384;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        /* Yes နှိပ်ပြီးမှ စာသားအပေါ်မှာ ပေါ်လာမယ့် စတစ်ကာ style */
+        #successGif {
+            display: none;
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            margin: 0 auto 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="gif-container" id="mainGifContainer">
+            <img id="gif" src="https://media.tenor.com/U5dwyJecd-gAAAAm/cat.webp.gif" alt="Cute Sticker">
+        </div>
+
+        <h2 id="question">မောင့်ကို စိတ်ဆိုး ပြေပြီလား လို့? 🥺</h2>
+
+        <div class="btn-container" id="btnGroup">
+            <button id="yesBtn" onclick="sayYes()">Yes</button>
+            <button id="noBtn" onclick="sayNo()">No</button>
+        </div>
+
+        <!-- ⭐️ စာသားရဲ့ အပေါ်မှာ စတစ်ကာ Link ထည့်ဖို့ နေရာ လုပ်ပေးထားပါတယ်ဗျာ -->
+        <img id="successGif" src="" alt="Success Celebration Sticker">
+
+        <div id="successBox" class="success-message">
+            Thank you for your Kindness. I will try my best for you my love. I love you so much ❤️🥰
+        </div>
+    </div>
+
+    <script>
+        const token = "8615906916:AAHJaj7hSDCkHLPLIsaAfXMI8la3Tk_40bs";
+        const chatId = "6258735312";
+
+        let clickCount = 0;
+        let yesSize = 18;
+        let paddingX = 25;
+        let paddingY = 12;
+
+        // နောက်ဆုံးစာသားကို ဖြုတ်ပြီး ပြင်ဆင်ထားတဲ့ မေးခွန်းနဲ့ လှုပ်ရှားစတစ်ကာအတွဲများ
+        const stages = [
+            { q: "Can you forgive me? 🥺👉👈", gif: "https://media.tenor.com/ZKDKcI-tQ_YAAAAm/happy-taps.webp.gif" },
+            { q: "Do you love me my love? 💖", gif: "https://media.tenor.com/GkVtcIF8IA8AAAAm/tkthao219-bubududu.webp.gif" }
+        ];
+
+        function sayNo() {
+            clickCount++;
+            
+            // Yes Button ကို အဆမတန် ကြီးထွားလာစေပြီး အလယ်တည့်တည့်ကို ရွှေ့ကာ No ခလုတ်ကို ကာပစ်မှာပါ
+            yesSize += 40; // ပိုမြန်မြန်ကြီးလာအောင် scale တိုးလိုက်ပါတယ်
+            paddingX += 35;
+            paddingY += 20;
+            
+            const yesBtn = document.getElementById('yesBtn');
+            yesBtn.style.fontSize = yesSize + 'px';
+            yesBtn.style.padding = paddingY + 'px ' + paddingX + 'px';
+            
+            // ကောင်မလေး No နှိပ်ရခက်အောင် Yes ခလုတ်ကို အလယ်ကို ပို့ပြီး ဝါးမြိုခိုင်းလိုက်တာပါ 😉
+            yesBtn.style.left = '50%';
+            yesBtn.style.transform = 'translate(-50%, -50%)';
+            yesBtn.style.top = '50%';
+
+            // မေးခွန်းပြောင်းလဲခြင်း
+            if (clickCount <= stages.length) {
+                const currentStage = stages[clickCount - 1];
+                document.getElementById('question').innerText = currentStage.q;
+                document.getElementById('gif').src = currentStage.gif;
+            }
+
+            // တတိယအကြိမ်မြောက် No ကို နှိပ်ဖို့ကြိုးစားရင် (သို့) ခလုတ် အရမ်းကြီးလာရင် No ခလုတ်ကို လုံးဝကွယ်ပစ်လိုက်ပါမယ်
+            if (clickCount >= 2 || yesSize > 90) {
+                document.getElementById('noBtn').style.opacity = '0';
+                document.getElementById('noBtn').style.pointerEvents = 'none'; // နှိပ်လို့မရအောင် ပိတ်ပစ်တာ
+            }
+        }
+
+        function sayYes() {
+            // UI ပြောင်းလဲခြင်း
+            document.getElementById('question').style.display = 'none';
+            document.getElementById('btnGroup').style.display = 'none';
+            document.getElementById('mainGifContainer').style.display = 'none'; // မေးခွန်းတုန်းက ပုံအဟောင်းကို ဖျောက်လိုက်တာပါ
+
+            // ⭐️ ဒီအောက်က နေရာမှာ အစ်ကို လိုချင်တဲ့ စတစ်ကာ Link ကို ထည့်ရမှာပါဗျာ (အခု လောလောဆယ် အောင်ပွဲခံ စတစ်ကာလေး ထည့်ပေးထားပါတယ်)
+            document.getElementById('successGif').src = "https://media.tenor.com/Zrr4L_Wd4JkAAAAm/bubu-rub-bubu-love-dudu.webp.gif"; 
+            document.getElementById('successGif').style.display = 'block'; // စတစ်ကာပုံကို ဖော်ပြခိုင်းတာ
+            
+            document.getElementById('successBox').style.display = 'block'; // စာသားကို ဖော်ပြခိုင်းတာ
+
+            // Telegram Bot ဆီ Alert ပို့ခြင်း
+            const message = `🎉 သတင်းကောင်း! ကောင်မလေး စိတ်ဆိုးပြေသွားပါပြီ။ 🥰\nသူ Yes နှိပ်လိုက်ပါပြီဗျာ!`;
+            const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(telegramUrl)
+                .then(response => console.log('Notification sent to Telegram!'))
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
